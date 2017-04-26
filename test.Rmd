@@ -28,3 +28,10 @@ When you save the notebook, an HTML file containing the code and output will be 
 test <- function(){print("hello world!")}
 test()
 ```
+
+# Example: ??
+
+```{r}
+test1 <- 1+2
+test1
+```
