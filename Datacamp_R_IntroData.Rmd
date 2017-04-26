@@ -3,6 +3,15 @@ title: "DataCamp_R_IntroData"
 output: html_notebook
 ---
 Chapter 1
+
+n the video, you saw how to load the hsb2 dataset into R using the data() function and how to preview its contents with str().
+
+In this exercise, you'll practice on another dataset, email50, which contains a subset of incoming emails for the first three months of 2012 for a single email account. You will examine the structure of this dataset and determine the number of rows (observations) and columns (variables).
+
+Instructions
+Load the email50 dataset with the data() function.
+View the structure of this dataset with the str() function. How many observations and variables are there?
+
 ```{r}
 # Load data
 
@@ -15,7 +24,30 @@ data(email50)
 # View its structure
 
 str(email50)
+```
+Recall from the video that the glimpse() function from dplyr provides a handy alternative to str() for previewing a dataset. In addition to telling you the number of observations and variables, it shows the name and type of each column, along with a neatly printed preview of its values.
 
+Let's have another look at the email50 data, so you can practice identifying variable types.
+
+Instructions
+Use the glimpse() function to view the variables in the email50 dataset. Identify each variable as either numerical or categorical, and further as discrete or continuous (if numerical) or ordinal or not ordinal (if categorical).
+```{r}
+# Glimpse email50
+glimpse(email50)
+```
+
+Filtering based on a factor
+100xp
+Categorical data are often stored as factors in R. In this exercise, you'll get some practice working with a factor variable, number, from the email50 dataset. This variable tells you what type of number (none, small, or big) an email contains.
+
+Recall from the video that the filter() function from dplyr allows you to filter a dataset to create a subset containing only certain levels of a variable. For example, the following code filters the mtcars dataset for cars containing 6 cylinders:
+
+mtcars %>%
+  filter(cyl == 6)
+Instructions
+Create a new dataset called email50_big that is a subset of the original email50 dataset containing only emails with "big" numbers. This information is stored in the number variable.
+Report the dimensions of email50_big using the glimpse() function again. How many emails contain big numbers?
+```{r}
 # Subset of emails with big numbers: email50_big
 
 email50_big <- email50  %>%
@@ -24,7 +56,18 @@ email50_big <- email50  %>%
 # Glimpse the subset
 
 glimpse(email50_big)
+```
+Complete filtering based on a factor
+100xp
+The droplevels() function removes unused levels of factor variables from your dataset. As you saw in the video, it's often useful to determine which levels are unused (i.e. contain zero values) with the table() function.
 
+In this exercise, you'll see which levels of the number variable are dropped after applying the droplevels() function.
+
+Instructions
+Make a table() of the number variable in the email50_big dataset. Which two levels are unused?
+Apply the droplevels() function to the number variable. Assign the result back to email50_big$number.
+Remake the table() of the number variable in the email50_big dataset. How is this output different from the first?
+```{r}
 
 # Table of number variable
 
@@ -37,8 +80,21 @@ email50_big$number <- droplevels(email50_big$number)
 # Another table of number variable
 
 table(email50_big$number)
+```
 
+Discretize a different variable
+100xp
+In this exercise, you will create a categorical version of the num_char variable in the email50 dataset, which tells you the number of characters in an email, in thousands. This new variable will have two levels—"below median" and "at or above median"—depending on whether an email has less than the median number of characters or equal to or more than that value.
 
+The median marks the 50th percentile, or midpoint, of a distribution, so half of the emails should fall in one category and the other half in the other. You will learn more about the median and other measures of center in the next course in this series.
+
+Instructions
+The email50 dataset is available in your workspace.
+
+Find the median number of characters in the emails and store the result as med_num_char.
+Create a new variable called num_char_cat, which discretizes the num_char variable into "below median" or "at or above median". Use the mutate() function from dplyr to accomplish this.
+Apply table() to determine how many emails are in each category and evaluate whether these counts match the expected numbers.
+```{r}
 # Calculate median number of characters: med_num_char
 
 med_num_char <- median(email50$num_char)
@@ -51,8 +107,17 @@ email50 <- email50 %>%
 # Count emails in each category
 
 table(email50$num_char_cat)
+```
+Combining levels of a different factor
+100xp
+Another common way of creating a new variable based on an existing one is by combining levels of a categorical variable. For example, the email50 dataset has a categorical variable called number with levels "none", "small", and "big", but suppose you're only interested in whether an email contains a number. In this exercise, you will create a variable containing this information and also visualize it.
 
+For now, do your best to understand the code we've provided to generate the plot. We will go through it in detail in the next video.
 
+Instructions
+Create a new variable in email50 called number_yn that is "no" if there is no number in the email and "yes" if there is a small or a big number. The ifelse() function may prove useful here.
+Run the code provided to visualize the distribution of the number_yn variable.
+```{r}
 # Create number_yn column in email50
 
 
@@ -64,7 +129,20 @@ email50 <- email50 %>%
 ggplot(email50, aes(x = number_yn)) +
   geom_bar()
 
+```
+Visualizing numerical and categorical data
+100xp
+In this exercise, you will visualize the relationship between two numerical variables from the email50 dataset, conditioned on whether or not the email was spam.
 
+Recall that in the ggplot() function, the first argument gives the dataset, then the aesthetics map the variables to certain features of the plot, and finally the geom_*() layer informs the type of plot you want to make. In this exercise, you will make a scatterplot by adding the geom_point() layer to your ggplot() call.
+
+Instructions
+Create a scatterplot of number of exclamation points in the email message (exclaim_mess) vs. number of characters (num_char).
+
+Color points by whether or not the email is spam.
+Note that the spam variable is stored as numerical (0/1) but you want to use it as a categorical variable in this plot. To do this, you need to force R to think of it as such with the factor() function.
+Based on the plot, what's the relationship between these variables?
+```{r}
 # Load ggplot2
 
 
@@ -72,8 +150,18 @@ ggplot(email50, aes(x = number_yn)) +
 
 ggplot(email50, aes(x = num_char, y = exclaim_mess, color = factor(spam))) +
   geom_point()
+```
+Identify the type of study
+100xp
+Next, let's take a look at data from a different study on country characteristics. You'll load the data first and view it, then you'll be asked to identify the type of study. Remember, an experiment requires random assignment.
 
+Instructions
+Load the gapminder data. This dataset comes from the gapminder R package, which has already been loaded for you.
+View the variables in the dataset with glimpse().
+If these data come from an observational study, assign "observational" to the type_of_study variable. If experimental, assign "experimental".
+```{r}
 # Load data
+
 library(gapminder)
 
 data(gapminder)
@@ -83,4 +171,68 @@ glimpse(gapminder)
 
 # Identify type of study
 type_of_study <- "observational"
+```
+Number of males and females admitted
+100xp
+In order to calculate the number of males and females admitted, we will introduce two new functions: count() from the dplyr package and spread() from the tidyr package.
+
+In one step, count() allows you to group the data by certain attributes (in this case, admission status and gender) and then counts the number of observations in each category.
+
+spread() simply reorganizes the output across columns based on a key-value pair, where a pair contains a key that explains what the information describes and a value that contains the actual information. spread() takes the name of the dataset as its first argument, the name of the key column as its second argument, and the name of the value column as its third argument, all specified without quotation marks.
+
+Instructions
+Use the ucb_admit dataset (which is already pre-loaded) and the count() function to determine the total number of males and females admitted. Assign the result to ucb_counts.
+Print ucb_counts to the console.
+Then, use the spread() function to spread the output across columns based on admission status (key) and n (value).
+```{r}
+
+# Load packages
+library(dplyr)
+library(tidyr)
+
+# Count number of male and female applicants admitted
+ucb_counts <- ucb_admit %>%
+  count(Gender, Admit)
+
+# View result
+ucb_counts
+  
+# Spread the output across columns
+ucb_counts %>%
+  spread(Admit, n)
+
+```
+Proportion of males admitted overall
+100xp
+You can now calculate the percentage of males admitted. To do so, you will create a new variable with mutate() from the dplyr package.
+
+Instructions
+dplyr and tidyr have been loaded for you.
+
+Use the code from the previous exercise to construct a table of counts of admission status and gender.
+Then, use the mutate() function create a new variable, Perc_Admit, which is the ratio of those admitted, Admitted, to all applicants of that gender, (Admitted + Rejected).
+Which gender has a higher admission rate, male or female?
+```{r}
+ucb_admit %>%
+  # Table of counts of admission status and gender
+  count(Gender,Admit) %>%
+  # Spread output across columns based on admission status
+  spread(Admit,n) %>%
+  # Create new variable
+  mutate(Perc_Admit = Admitted / ((Admitted + Rejected)))
+```
+Proportion of males admitted for each department
+100xp
+Next you'll make a table similar to the one you constructed earlier, except you will first group the data by department. Then, you'll use this table to calculate the proportion of males admitted in each department.
+
+Instructions
+dplyr and tidyr have been loaded for you.
+
+Use the code from earlier to create a table of counts of admission status and gender, but this time group first by Dept. Assign this result to admit_by_dept.
+Print admit_by_dept to the console.
+Calculate the percentage of those admitted in each department, Perc_Admit, by applying the mutate() function to admit_by_dept.
+```{r}
+ucb_admit %>%
+  count(Dept,Gender,Admit) %>%
+  spread(Admit,n)
 ```
