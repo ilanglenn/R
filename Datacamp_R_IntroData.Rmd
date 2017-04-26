@@ -2,75 +2,85 @@
 title: "DataCamp_R_IntroData"
 output: html_notebook
 ---
-# Load data
+Chapter 1
 ```{r}
+# Load data
+
 library(openintro)
+library(dplyr)
+library(ggplot2)
 data(email50)
-```
+
 
 # View its structure
-```{r}
+
 str(email50)
-glimpse(email50)
-```
+
 # Subset of emails with big numbers: email50_big
-```{r}
+
 email50_big <- email50  %>%
   filter(number == "big")
-```
+
 # Glimpse the subset
-```{r}
+
 glimpse(email50_big)
-```
+
 
 # Table of number variable
-```{r}
+
 table(email50_big$number)
-```
+
 # Drop levels
-```{r}
+
 email50_big$number <- droplevels(email50_big$number)
-```
+
 # Another table of number variable
-```{r}
+
 table(email50_big$number)
-```
+
 
 # Calculate median number of characters: med_num_char
-```{r}
+
 med_num_char <- median(email50$num_char)
-```
+
 # Create num_char_cat variable in email50
-```{r}
+
 email50 <- email50 %>%
   mutate(num_char_cat = ifelse(num_char < med_num_char, "below median", "at or above median"))
-```  
+
 # Count emails in each category
-```{r}
+
 table(email50$num_char_cat)
-```
+
 
 # Create number_yn column in email50
 
-```{r}
+
 email50 <- email50 %>%
   mutate(number_yn = ifelse(number == "none", "no", "yes"))
-```
+
 # Visualize number_yn
-```{r}
+
 ggplot(email50, aes(x = number_yn)) +
   geom_bar()
-```
+
 
 # Load ggplot2
-```{r}
-library(ggplot2)
-```
+
+
 # Scatterplot of exclaim_mess vs. num_char
-```{r}
+
 ggplot(email50, aes(x = num_char, y = exclaim_mess, color = factor(spam))) +
   geom_point()
+
+# Load data
+library(gapminder)
+
+data(gapminder)
+
+# Glimpse data
+glimpse(gapminder)
+
+# Identify type of study
+type_of_study <- "observational"
 ```
-
-
-
