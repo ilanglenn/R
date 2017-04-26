@@ -22,7 +22,7 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 
 
-#Example: write a function
+# Example: write a function
 
 ```{r}
 test <- function(){print("hello world!")}
