@@ -2,20 +2,75 @@
 title: "DataCamp_R_IntroData"
 output: html_notebook
 ---
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
+# Load data
 ```{r}
 library(openintro)
-# Load data
 data(email50)
-
-# View its structure
-str(email50)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+# View its structure
+```{r}
+str(email50)
+glimpse(email50)
+```
+# Subset of emails with big numbers: email50_big
+```{r}
+email50_big <- email50  %>%
+  filter(number == "big")
+```
+# Glimpse the subset
+```{r}
+glimpse(email50_big)
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+# Table of number variable
+```{r}
+table(email50_big$number)
+```
+# Drop levels
+```{r}
+email50_big$number <- droplevels(email50_big$number)
+```
+# Another table of number variable
+```{r}
+table(email50_big$number)
+```
+
+# Calculate median number of characters: med_num_char
+```{r}
+med_num_char <- median(email50$num_char)
+```
+# Create num_char_cat variable in email50
+```{r}
+email50 <- email50 %>%
+  mutate(num_char_cat = ifelse(num_char < med_num_char, "below median", "at or above median"))
+```  
+# Count emails in each category
+```{r}
+table(email50$num_char_cat)
+```
+
+# Create number_yn column in email50
+
+```{r}
+email50 <- email50 %>%
+  mutate(number_yn = ifelse(number == "none", "no", "yes"))
+```
+# Visualize number_yn
+```{r}
+ggplot(email50, aes(x = number_yn)) +
+  geom_bar()
+```
+
+# Load ggplot2
+```{r}
+library(ggplot2)
+```
+# Scatterplot of exclaim_mess vs. num_char
+```{r}
+ggplot(email50, aes(x = num_char, y = exclaim_mess, color = factor(spam))) +
+  geom_point()
+```
+
+
+
