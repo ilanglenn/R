@@ -236,3 +236,121 @@ ucb_admit %>%
   count(Dept,Gender,Admit) %>%
   spread(Admit,n)
 ```
+
+Simple random sample in R
+100xp
+Suppose you want to collect some data from a sample of eight states. A list of all states and the region they belong to (Northeast, Midwest, South, West) are given in the us_regions data frame.
+
+Instructions
+The dplyr package and us_regions data frame have been loaded for you.
+
+Use simple random sampling to select eight states from us_regions. Save this sample in a data frame called states_srs.
+Count the number of states from each region in your sample.
+```{r}
+# Simple random sample: states_srs
+states_srs <- us_regions  %>%
+  sample_n(size = 8)
+
+# Count states by region
+states_srs %>%
+  group_by(region) %>%
+  count()
+```
+
+Stratified sample in R
+100xp
+In the last exercise, you took a simple random sample of eight states. However, as you may have noticed when you counted the number of states selected from each region, this strategy is unlikely to select an equal number of states from each region. The goal of stratified sampling is to select an equal number of states from each region.
+
+Instructions
+The dplyr package has been loaded for you and us_regions is still available in your workspace.
+
+Use stratified sampling to select a total of eight states, where each stratum is a region. Save this sample in a data frame called states_str.
+Count the number of states from each region in your sample to confirm that each region is represented equally in your sample.
+
+```{r}
+# Stratified sample
+states_str <- us_regions  %>%
+  group_by(region) %>%
+  sample_n(size = 2)
+
+# Count states by region
+states_str %>%
+   group_by(region) %>%
+   count()
+```
+Inspect the data
+100xp
+The purpose of this chapter is to give you an opportunity to apply and practice what you've learned on a real world dataset. For this reason, we'll provide a little less guidance than usual.
+
+The data from the study described in the video are available in your workspace as evals. Let's take a look!
+
+Instructions
+Inspect the evals data frame using techniques you learned in previous chapters. Use an approach that shows you how many observations and variables are included in the dataset.
+```{r}
+# Inspect evals
+
+dim(evals)[1]
+
+dim(evals)[2]
+```
+Identify variable types
+100xp
+It's always useful to start your exploration of a dataset by identifying variable types. The results from this exercise will help you design appropriate visualizations and calculate useful summary statistics later in your analysis.
+
+Instructions
+Explore the evals data once again with the following goals in mind:
+Identify each variable as numerical or categorical.
+If numerical, determine if discrete or continuous.
+If categorical, determine if ordinal or not.
+We've created a vector of variable names in the editor called cat_vars. To test your understanding of the data, remove the names of any variables that are not categorical.
+```{r}
+# Inspect variable types
+glimpse(evals)
+
+# Remove non-factor variables from this vector
+cat_vars <- c( "rank", "ethnicity", "gender", "language", "cls_level", "cls_profs", "cls_credits",
+               "pic_outfit", "pic_color")
+```
+Recode a variable
+100xp
+The cls_students variable in evals tells you the number of students in the class. Suppose instead of the exact number of students, you're interested in whether the class is
+
+"small" (18 students or fewer),
+"midsize" (19 - 59 students), or
+"large" (60 students or more).
+Since you'd like to have three distinct levels (instead of just two), you will need a nested call to ifelse(), which means that you'll call ifelse() a second time from within your first call to ifelse(). We've provided some scaffolding for you in the editor—see if you can figure it out!
+
+Instructions
+Recode the cls_students variable into a new variable, cls_type, having the three levels described above. Save the resulting data frame (with the new variable) as evals.
+What type of variable is cls_type?
+```{r}
+# Recode cls_students as cls_type: evals
+evals <- evals  %>%
+  # Create new variable
+  mutate(cls_type = ifelse(cls_students<=18 , "small", 
+                      ifelse(cls_students>=60, "large", "midsize")))
+```
+
+Create a scatterplot
+100xp
+The bty_avg variable shows the average beauty rating of the professor by the six students who were asked to rate the attractiveness of these faculty. The score variable shows the average professor evaluation score, with 1 being very unsatisfactory and 5 being excellent.
+
+Instructions
+Use ggplot() to create a scatterplot displaying the relationship between these two variables.
+How would you describe the relationship apparent in this visualization?
+```{r}
+# Scatterplot of score vs. bty_avg
+ggplot(evals, aes (x =bty_avg , y=score)) + geom_point()
+```
+Create a scatterplot, with an added layer
+100xp
+Suppose you are interested in evaluating how the relationship between a professor's attractiveness and their evaluation score varies across different class types (small, midsize, and large).
+
+Instructions
+Recreate your visualization from the previous exercise, but this time coloring the points by class type.
+How would you describe the relationship apparent in this visualization?
+```{r}
+
+# Scatterplot of score vs. bty_avg colored by cls_type
+ggplot(evals, aes(x =bty_avg , y=score,color = cls_type)) + geom_point()
+```

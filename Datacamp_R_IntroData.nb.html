@@ -174,6 +174,9 @@ $(document).ready(function () {
 
 <!-- rnb-text-begin -->
 <p>Chapter 1</p>
+<p>n the video, you saw how to load the hsb2 dataset into R using the data() function and how to preview its contents with str().</p>
+<p>In this exercise, you’ll practice on another dataset, email50, which contains a subset of incoming emails for the first three months of 2012 for a single email account. You will examine the structure of this dataset and determine the number of rows (observations) and columns (variables).</p>
+<p>Instructions Load the email50 dataset with the data() function. View the structure of this dataset with the str() function. How many observations and variables are there?</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIGRhdGFcbmxpYnJhcnkob3BlbmludHJvKVxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoZ2dwbG90MilcbmRhdGEoZW1haWw1MClcbiMgVmlldyBpdHMgc3RydWN0dXJlXG5zdHIoZW1haWw1MClcbmBgYCJ9 -->
@@ -317,8 +320,287 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 type_of_study &lt;- &quot;observational&quot;</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Recall from the video that the glimpse() function from dplyr provides a handy alternative to str() for previewing a dataset. In addition to telling you the number of observations and variables, it shows the name and type of each column, along with a neatly printed preview of its values.</p>
+<p>Let’s have another look at the email50 data, so you can practice identifying variable types.</p>
+<p>Instructions Use the glimpse() function to view the variables in the email50 dataset. Identify each variable as either numerical or categorical, and further as discrete or continuous (if numerical) or ordinal or not ordinal (if categorical).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBHbGltcHNlIGVtYWlsNTBcbmdsaW1wc2UoZW1haWw1MClcbmBgYCJ9 -->
+<pre class="r"><code># Glimpse email50
+glimpse(email50)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Filtering based on a factor 100xp Categorical data are often stored as factors in R. In this exercise, you’ll get some practice working with a factor variable, number, from the email50 dataset. This variable tells you what type of number (none, small, or big) an email contains.</p>
+<p>Recall from the video that the filter() function from dplyr allows you to filter a dataset to create a subset containing only certain levels of a variable. For example, the following code filters the mtcars dataset for cars containing 6 cylinders:</p>
+<p>mtcars %&gt;% filter(cyl == 6) Instructions Create a new dataset called email50_big that is a subset of the original email50 dataset containing only emails with “big” numbers. This information is stored in the number variable. Report the dimensions of email50_big using the glimpse() function again. How many emails contain big numbers?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTdWJzZXQgb2YgZW1haWxzIHdpdGggYmlnIG51bWJlcnM6IGVtYWlsNTBfYmlnXG5cbmVtYWlsNTBfYmlnIDwtIGVtYWlsNTAgICU+JVxuICBmaWx0ZXIobnVtYmVyID09IFwiYmlnXCIpXG5cbiMgR2xpbXBzZSB0aGUgc3Vic2V0XG5cbmdsaW1wc2UoZW1haWw1MF9iaWcpXG5gYGAifQ== -->
+<pre class="r"><code># Subset of emails with big numbers: email50_big
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFDYW1wX1JfSW50cm9EYXRhIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCkNoYXB0ZXIgMQ0KYGBge3J9DQojIExvYWQgZGF0YQ0KDQpsaWJyYXJ5KG9wZW5pbnRybykNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpkYXRhKGVtYWlsNTApDQoNCg0KIyBWaWV3IGl0cyBzdHJ1Y3R1cmUNCg0Kc3RyKGVtYWlsNTApDQoNCiMgU3Vic2V0IG9mIGVtYWlscyB3aXRoIGJpZyBudW1iZXJzOiBlbWFpbDUwX2JpZw0KDQplbWFpbDUwX2JpZyA8LSBlbWFpbDUwICAlPiUNCiAgZmlsdGVyKG51bWJlciA9PSAiYmlnIikNCg0KIyBHbGltcHNlIHRoZSBzdWJzZXQNCg0KZ2xpbXBzZShlbWFpbDUwX2JpZykNCg0KDQojIFRhYmxlIG9mIG51bWJlciB2YXJpYWJsZQ0KDQp0YWJsZShlbWFpbDUwX2JpZyRudW1iZXIpDQoNCiMgRHJvcCBsZXZlbHMNCg0KZW1haWw1MF9iaWckbnVtYmVyIDwtIGRyb3BsZXZlbHMoZW1haWw1MF9iaWckbnVtYmVyKQ0KDQojIEFub3RoZXIgdGFibGUgb2YgbnVtYmVyIHZhcmlhYmxlDQoNCnRhYmxlKGVtYWlsNTBfYmlnJG51bWJlcikNCg0KDQojIENhbGN1bGF0ZSBtZWRpYW4gbnVtYmVyIG9mIGNoYXJhY3RlcnM6IG1lZF9udW1fY2hhcg0KDQptZWRfbnVtX2NoYXIgPC0gbWVkaWFuKGVtYWlsNTAkbnVtX2NoYXIpDQoNCiMgQ3JlYXRlIG51bV9jaGFyX2NhdCB2YXJpYWJsZSBpbiBlbWFpbDUwDQoNCmVtYWlsNTAgPC0gZW1haWw1MCAlPiUNCiAgbXV0YXRlKG51bV9jaGFyX2NhdCA9IGlmZWxzZShudW1fY2hhciA8IG1lZF9udW1fY2hhciwgImJlbG93IG1lZGlhbiIsICJhdCBvciBhYm92ZSBtZWRpYW4iKSkNCg0KIyBDb3VudCBlbWFpbHMgaW4gZWFjaCBjYXRlZ29yeQ0KDQp0YWJsZShlbWFpbDUwJG51bV9jaGFyX2NhdCkNCg0KDQojIENyZWF0ZSBudW1iZXJfeW4gY29sdW1uIGluIGVtYWlsNTANCg0KDQplbWFpbDUwIDwtIGVtYWlsNTAgJT4lDQogIG11dGF0ZShudW1iZXJfeW4gPSBpZmVsc2UobnVtYmVyID09ICJub25lIiwgIm5vIiwgInllcyIpKQ0KDQojIFZpc3VhbGl6ZSBudW1iZXJfeW4NCg0KZ2dwbG90KGVtYWlsNTAsIGFlcyh4ID0gbnVtYmVyX3luKSkgKw0KICBnZW9tX2JhcigpDQoNCg0KIyBMb2FkIGdncGxvdDINCg0KDQojIFNjYXR0ZXJwbG90IG9mIGV4Y2xhaW1fbWVzcyB2cy4gbnVtX2NoYXINCg0KZ2dwbG90KGVtYWlsNTAsIGFlcyh4ID0gbnVtX2NoYXIsIHkgPSBleGNsYWltX21lc3MsIGNvbG9yID0gZmFjdG9yKHNwYW0pKSkgKw0KICBnZW9tX3BvaW50KCkNCg0KIyBMb2FkIGRhdGENCmxpYnJhcnkoZ2FwbWluZGVyKQ0KDQpkYXRhKGdhcG1pbmRlcikNCg0KIyBHbGltcHNlIGRhdGENCmdsaW1wc2UoZ2FwbWluZGVyKQ0KDQojIElkZW50aWZ5IHR5cGUgb2Ygc3R1ZHkNCnR5cGVfb2Zfc3R1ZHkgPC0gIm9ic2VydmF0aW9uYWwiDQpgYGANCg==</div>
+email50_big &lt;- email50  %&gt;%
+  filter(number == &quot;big&quot;)
+
+# Glimpse the subset
+
+glimpse(email50_big)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Complete filtering based on a factor 100xp The droplevels() function removes unused levels of factor variables from your dataset. As you saw in the video, it’s often useful to determine which levels are unused (i.e. contain zero values) with the table() function.</p>
+<p>In this exercise, you’ll see which levels of the number variable are dropped after applying the droplevels() function.</p>
+<p>Instructions Make a table() of the number variable in the email50_big dataset. Which two levels are unused? Apply the droplevels() function to the number variable. Assign the result back to email50_big$number. Remake the table() of the number variable in the email50_big dataset. How is this output different from the first?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIFRhYmxlIG9mIG51bWJlciB2YXJpYWJsZVxuXG50YWJsZShlbWFpbDUwX2JpZyRudW1iZXIpXG5cbiMgRHJvcCBsZXZlbHNcblxuZW1haWw1MF9iaWckbnVtYmVyIDwtIGRyb3BsZXZlbHMoZW1haWw1MF9iaWckbnVtYmVyKVxuXG4jIEFub3RoZXIgdGFibGUgb2YgbnVtYmVyIHZhcmlhYmxlXG5cbnRhYmxlKGVtYWlsNTBfYmlnJG51bWJlcilcbmBgYCJ9 -->
+<pre class="r"><code>
+# Table of number variable
+
+table(email50_big$number)
+
+# Drop levels
+
+email50_big$number &lt;- droplevels(email50_big$number)
+
+# Another table of number variable
+
+table(email50_big$number)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Discretize a different variable 100xp In this exercise, you will create a categorical version of the num_char variable in the email50 dataset, which tells you the number of characters in an email, in thousands. This new variable will have two levels—“below median” and “at or above median”—depending on whether an email has less than the median number of characters or equal to or more than that value.</p>
+<p>The median marks the 50th percentile, or midpoint, of a distribution, so half of the emails should fall in one category and the other half in the other. You will learn more about the median and other measures of center in the next course in this series.</p>
+<p>Instructions The email50 dataset is available in your workspace.</p>
+<p>Find the median number of characters in the emails and store the result as med_num_char. Create a new variable called num_char_cat, which discretizes the num_char variable into “below median” or “at or above median”. Use the mutate() function from dplyr to accomplish this. Apply table() to determine how many emails are in each category and evaluate whether these counts match the expected numbers.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDYWxjdWxhdGUgbWVkaWFuIG51bWJlciBvZiBjaGFyYWN0ZXJzOiBtZWRfbnVtX2NoYXJcblxubWVkX251bV9jaGFyIDwtIG1lZGlhbihlbWFpbDUwJG51bV9jaGFyKVxuXG4jIENyZWF0ZSBudW1fY2hhcl9jYXQgdmFyaWFibGUgaW4gZW1haWw1MFxuXG5lbWFpbDUwIDwtIGVtYWlsNTAgJT4lXG4gIG11dGF0ZShudW1fY2hhcl9jYXQgPSBpZmVsc2UobnVtX2NoYXIgPCBtZWRfbnVtX2NoYXIsIFwiYmVsb3cgbWVkaWFuXCIsIFwiYXQgb3IgYWJvdmUgbWVkaWFuXCIpKVxuXG4jIENvdW50IGVtYWlscyBpbiBlYWNoIGNhdGVnb3J5XG5cbnRhYmxlKGVtYWlsNTAkbnVtX2NoYXJfY2F0KVxuYGBgIn0= -->
+<pre class="r"><code># Calculate median number of characters: med_num_char
+
+med_num_char &lt;- median(email50$num_char)
+
+# Create num_char_cat variable in email50
+
+email50 &lt;- email50 %&gt;%
+  mutate(num_char_cat = ifelse(num_char &lt; med_num_char, &quot;below median&quot;, &quot;at or above median&quot;))
+
+# Count emails in each category
+
+table(email50$num_char_cat)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Combining levels of a different factor 100xp Another common way of creating a new variable based on an existing one is by combining levels of a categorical variable. For example, the email50 dataset has a categorical variable called number with levels “none”, “small”, and “big”, but suppose you’re only interested in whether an email contains a number. In this exercise, you will create a variable containing this information and also visualize it.</p>
+<p>For now, do your best to understand the code we’ve provided to generate the plot. We will go through it in detail in the next video.</p>
+<p>Instructions Create a new variable in email50 called number_yn that is “no” if there is no number in the email and “yes” if there is a small or a big number. The ifelse() function may prove useful here. Run the code provided to visualize the distribution of the number_yn variable.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgbnVtYmVyX3luIGNvbHVtbiBpbiBlbWFpbDUwXG5cblxuZW1haWw1MCA8LSBlbWFpbDUwICU+JVxuICBtdXRhdGUobnVtYmVyX3luID0gaWZlbHNlKG51bWJlciA9PSBcIm5vbmVcIiwgXCJub1wiLCBcInllc1wiKSlcblxuIyBWaXN1YWxpemUgbnVtYmVyX3luXG5cbmdncGxvdChlbWFpbDUwLCBhZXMoeCA9IG51bWJlcl95bikpICtcbiAgZ2VvbV9iYXIoKVxuXG5gYGAifQ== -->
+<pre class="r"><code># Create number_yn column in email50
+
+
+email50 &lt;- email50 %&gt;%
+  mutate(number_yn = ifelse(number == &quot;none&quot;, &quot;no&quot;, &quot;yes&quot;))
+
+# Visualize number_yn
+
+ggplot(email50, aes(x = number_yn)) +
+  geom_bar()
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Visualizing numerical and categorical data 100xp In this exercise, you will visualize the relationship between two numerical variables from the email50 dataset, conditioned on whether or not the email was spam.</p>
+<p>Recall that in the ggplot() function, the first argument gives the dataset, then the aesthetics map the variables to certain features of the plot, and finally the geom_*() layer informs the type of plot you want to make. In this exercise, you will make a scatterplot by adding the geom_point() layer to your ggplot() call.</p>
+<p>Instructions Create a scatterplot of number of exclamation points in the email message (exclaim_mess) vs. number of characters (num_char).</p>
+<p>Color points by whether or not the email is spam. Note that the spam variable is stored as numerical (0/1) but you want to use it as a categorical variable in this plot. To do this, you need to force R to think of it as such with the factor() function. Based on the plot, what’s the relationship between these variables?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIGdncGxvdDJcblxuXG4jIFNjYXR0ZXJwbG90IG9mIGV4Y2xhaW1fbWVzcyB2cy4gbnVtX2NoYXJcblxuZ2dwbG90KGVtYWlsNTAsIGFlcyh4ID0gbnVtX2NoYXIsIHkgPSBleGNsYWltX21lc3MsIGNvbG9yID0gZmFjdG9yKHNwYW0pKSkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
+<pre class="r"><code># Load ggplot2
+
+
+# Scatterplot of exclaim_mess vs. num_char
+
+ggplot(email50, aes(x = num_char, y = exclaim_mess, color = factor(spam))) +
+  geom_point()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Identify the type of study 100xp Next, let’s take a look at data from a different study on country characteristics. You’ll load the data first and view it, then you’ll be asked to identify the type of study. Remember, an experiment requires random assignment.</p>
+<p>Instructions Load the gapminder data. This dataset comes from the gapminder R package, which has already been loaded for you. View the variables in the dataset with glimpse(). If these data come from an observational study, assign “observational” to the type_of_study variable. If experimental, assign “experimental”.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIGRhdGFcblxubGlicmFyeShnYXBtaW5kZXIpXG5cbmRhdGEoZ2FwbWluZGVyKVxuXG4jIEdsaW1wc2UgZGF0YVxuZ2xpbXBzZShnYXBtaW5kZXIpXG5cbiMgSWRlbnRpZnkgdHlwZSBvZiBzdHVkeVxudHlwZV9vZl9zdHVkeSA8LSBcIm9ic2VydmF0aW9uYWxcIlxuYGBgIn0= -->
+<pre class="r"><code># Load data
+
+library(gapminder)
+
+data(gapminder)
+
+# Glimpse data
+glimpse(gapminder)
+
+# Identify type of study
+type_of_study &lt;- &quot;observational&quot;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Number of males and females admitted 100xp In order to calculate the number of males and females admitted, we will introduce two new functions: count() from the dplyr package and spread() from the tidyr package.</p>
+<p>In one step, count() allows you to group the data by certain attributes (in this case, admission status and gender) and then counts the number of observations in each category.</p>
+<p>spread() simply reorganizes the output across columns based on a key-value pair, where a pair contains a key that explains what the information describes and a value that contains the actual information. spread() takes the name of the dataset as its first argument, the name of the key column as its second argument, and the name of the value column as its third argument, all specified without quotation marks.</p>
+<p>Instructions Use the ucb_admit dataset (which is already pre-loaded) and the count() function to determine the total number of males and females admitted. Assign the result to ucb_counts. Print ucb_counts to the console. Then, use the spread() function to spread the output across columns based on admission status (key) and n (value).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIExvYWQgcGFja2FnZXNcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KHRpZHlyKVxuXG4jIENvdW50IG51bWJlciBvZiBtYWxlIGFuZCBmZW1hbGUgYXBwbGljYW50cyBhZG1pdHRlZFxudWNiX2NvdW50cyA8LSB1Y2JfYWRtaXQgJT4lXG4gIGNvdW50KEdlbmRlciwgQWRtaXQpXG5cbiMgVmlldyByZXN1bHRcbnVjYl9jb3VudHNcbiAgXG4jIFNwcmVhZCB0aGUgb3V0cHV0IGFjcm9zcyBjb2x1bW5zXG51Y2JfY291bnRzICU+JVxuICBzcHJlYWQoQWRtaXQsIG4pXG5cbmBgYCJ9 -->
+<pre class="r"><code>
+# Load packages
+library(dplyr)
+library(tidyr)
+
+# Count number of male and female applicants admitted
+ucb_counts &lt;- ucb_admit %&gt;%
+  count(Gender, Admit)
+
+# View result
+ucb_counts
+  
+# Spread the output across columns
+ucb_counts %&gt;%
+  spread(Admit, n)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Proportion of males admitted overall 100xp You can now calculate the percentage of males admitted. To do so, you will create a new variable with mutate() from the dplyr package.</p>
+<p>Instructions dplyr and tidyr have been loaded for you.</p>
+<p>Use the code from the previous exercise to construct a table of counts of admission status and gender. Then, use the mutate() function create a new variable, Perc_Admit, which is the ratio of those admitted, Admitted, to all applicants of that gender, (Admitted + Rejected). Which gender has a higher admission rate, male or female?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudWNiX2FkbWl0ICU+JVxuICAjIFRhYmxlIG9mIGNvdW50cyBvZiBhZG1pc3Npb24gc3RhdHVzIGFuZCBnZW5kZXJcbiAgY291bnQoR2VuZGVyLEFkbWl0KSAlPiVcbiAgIyBTcHJlYWQgb3V0cHV0IGFjcm9zcyBjb2x1bW5zIGJhc2VkIG9uIGFkbWlzc2lvbiBzdGF0dXNcbiAgc3ByZWFkKEFkbWl0LG4pICU+JVxuICAjIENyZWF0ZSBuZXcgdmFyaWFibGVcbiAgbXV0YXRlKFBlcmNfQWRtaXQgPSBBZG1pdHRlZCAvICgoQWRtaXR0ZWQgKyBSZWplY3RlZCkpKVxuYGBgIn0= -->
+<pre class="r"><code>ucb_admit %&gt;%
+  # Table of counts of admission status and gender
+  count(Gender,Admit) %&gt;%
+  # Spread output across columns based on admission status
+  spread(Admit,n) %&gt;%
+  # Create new variable
+  mutate(Perc_Admit = Admitted / ((Admitted + Rejected)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Proportion of males admitted for each department 100xp Next you’ll make a table similar to the one you constructed earlier, except you will first group the data by department. Then, you’ll use this table to calculate the proportion of males admitted in each department.</p>
+<p>Instructions dplyr and tidyr have been loaded for you.</p>
+<p>Use the code from earlier to create a table of counts of admission status and gender, but this time group first by Dept. Assign this result to admit_by_dept. Print admit_by_dept to the console. Calculate the percentage of those admitted in each department, Perc_Admit, by applying the mutate() function to admit_by_dept.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudWNiX2FkbWl0ICU+JVxuICBjb3VudChEZXB0LEdlbmRlcixBZG1pdCkgJT4lXG4gIHNwcmVhZChBZG1pdCxuKVxuYGBgIn0= -->
+<pre class="r"><code>ucb_admit %&gt;%
+  count(Dept,Gender,Admit) %&gt;%
+  spread(Admit,n)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Simple random sample in R 100xp Suppose you want to collect some data from a sample of eight states. A list of all states and the region they belong to (Northeast, Midwest, South, West) are given in the us_regions data frame.</p>
+<p>Instructions The dplyr package and us_regions data frame have been loaded for you.</p>
+<p>Use simple random sampling to select eight states from us_regions. Save this sample in a data frame called states_srs. Count the number of states from each region in your sample.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTaW1wbGUgcmFuZG9tIHNhbXBsZTogc3RhdGVzX3Nyc1xuc3RhdGVzX3NycyA8LSB1c19yZWdpb25zICAlPiVcbiAgc2FtcGxlX24oc2l6ZSA9IDgpXG5cbiMgQ291bnQgc3RhdGVzIGJ5IHJlZ2lvblxuc3RhdGVzX3NycyAlPiVcbiAgZ3JvdXBfYnkocmVnaW9uKSAlPiVcbiAgY291bnQoKVxuYGBgIn0= -->
+<pre class="r"><code># Simple random sample: states_srs
+states_srs &lt;- us_regions  %&gt;%
+  sample_n(size = 8)
+
+# Count states by region
+states_srs %&gt;%
+  group_by(region) %&gt;%
+  count()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Stratified sample in R 100xp In the last exercise, you took a simple random sample of eight states. However, as you may have noticed when you counted the number of states selected from each region, this strategy is unlikely to select an equal number of states from each region. The goal of stratified sampling is to select an equal number of states from each region.</p>
+<p>Instructions The dplyr package has been loaded for you and us_regions is still available in your workspace.</p>
+<p>Use stratified sampling to select a total of eight states, where each stratum is a region. Save this sample in a data frame called states_str. Count the number of states from each region in your sample to confirm that each region is represented equally in your sample.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTdHJhdGlmaWVkIHNhbXBsZVxuc3RhdGVzX3N0ciA8LSB1c19yZWdpb25zICAlPiVcbiAgZ3JvdXBfYnkocmVnaW9uKSAlPiVcbiAgc2FtcGxlX24oc2l6ZSA9IDIpXG5cbiMgQ291bnQgc3RhdGVzIGJ5IHJlZ2lvblxuc3RhdGVzX3N0ciAlPiVcbiAgIGdyb3VwX2J5KHJlZ2lvbikgJT4lXG4gICBjb3VudCgpXG5gYGAifQ== -->
+<pre class="r"><code># Stratified sample
+states_str &lt;- us_regions  %&gt;%
+  group_by(region) %&gt;%
+  sample_n(size = 2)
+
+# Count states by region
+states_str %&gt;%
+   group_by(region) %&gt;%
+   count()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Inspect the data 100xp The purpose of this chapter is to give you an opportunity to apply and practice what you’ve learned on a real world dataset. For this reason, we’ll provide a little less guidance than usual.</p>
+<p>The data from the study described in the video are available in your workspace as evals. Let’s take a look!</p>
+<p>Instructions Inspect the evals data frame using techniques you learned in previous chapters. Use an approach that shows you how many observations and variables are included in the dataset.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbnNwZWN0IGV2YWxzXG5cbmRpbShldmFscylbMV1cblxuZGltKGV2YWxzKVsyXVxuYGBgIn0= -->
+<pre class="r"><code># Inspect evals
+
+dim(evals)[1]
+
+dim(evals)[2]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Identify variable types 100xp It’s always useful to start your exploration of a dataset by identifying variable types. The results from this exercise will help you design appropriate visualizations and calculate useful summary statistics later in your analysis.</p>
+<p>Instructions Explore the evals data once again with the following goals in mind: Identify each variable as numerical or categorical. If numerical, determine if discrete or continuous. If categorical, determine if ordinal or not. We’ve created a vector of variable names in the editor called cat_vars. To test your understanding of the data, remove the names of any variables that are not categorical.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbnNwZWN0IHZhcmlhYmxlIHR5cGVzXG5nbGltcHNlKGV2YWxzKVxuXG4jIFJlbW92ZSBub24tZmFjdG9yIHZhcmlhYmxlcyBmcm9tIHRoaXMgdmVjdG9yXG5jYXRfdmFycyA8LSBjKCBcInJhbmtcIiwgXCJldGhuaWNpdHlcIiwgXCJnZW5kZXJcIiwgXCJsYW5ndWFnZVwiLCBcImNsc19sZXZlbFwiLCBcImNsc19wcm9mc1wiLCBcImNsc19jcmVkaXRzXCIsXG4gICAgICAgICAgICAgICBcInBpY19vdXRmaXRcIiwgXCJwaWNfY29sb3JcIilcbmBgYCJ9 -->
+<pre class="r"><code># Inspect variable types
+glimpse(evals)
+
+# Remove non-factor variables from this vector
+cat_vars &lt;- c( &quot;rank&quot;, &quot;ethnicity&quot;, &quot;gender&quot;, &quot;language&quot;, &quot;cls_level&quot;, &quot;cls_profs&quot;, &quot;cls_credits&quot;,
+               &quot;pic_outfit&quot;, &quot;pic_color&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Recode a variable 100xp The cls_students variable in evals tells you the number of students in the class. Suppose instead of the exact number of students, you’re interested in whether the class is</p>
+<p>“small” (18 students or fewer), “midsize” (19 - 59 students), or “large” (60 students or more). Since you’d like to have three distinct levels (instead of just two), you will need a nested call to ifelse(), which means that you’ll call ifelse() a second time from within your first call to ifelse(). We’ve provided some scaffolding for you in the editor—see if you can figure it out!</p>
+<p>Instructions Recode the cls_students variable into a new variable, cls_type, having the three levels described above. Save the resulting data frame (with the new variable) as evals. What type of variable is cls_type?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZWNvZGUgY2xzX3N0dWRlbnRzIGFzIGNsc190eXBlOiBldmFsc1xuZXZhbHMgPC0gZXZhbHMgICU+JVxuICAjIENyZWF0ZSBuZXcgdmFyaWFibGVcbiAgbXV0YXRlKGNsc190eXBlID0gaWZlbHNlKGNsc19zdHVkZW50czw9MTggLCBcInNtYWxsXCIsIFxuICAgICAgICAgICAgICAgICAgICAgIGlmZWxzZShjbHNfc3R1ZGVudHM+PTYwLCBcImxhcmdlXCIsIFwibWlkc2l6ZVwiKSkpXG5gYGAifQ== -->
+<pre class="r"><code># Recode cls_students as cls_type: evals
+evals &lt;- evals  %&gt;%
+  # Create new variable
+  mutate(cls_type = ifelse(cls_students&lt;=18 , &quot;small&quot;, 
+                      ifelse(cls_students&gt;=60, &quot;large&quot;, &quot;midsize&quot;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Create a scatterplot 100xp The bty_avg variable shows the average beauty rating of the professor by the six students who were asked to rate the attractiveness of these faculty. The score variable shows the average professor evaluation score, with 1 being very unsatisfactory and 5 being excellent.</p>
+<p>Instructions Use ggplot() to create a scatterplot displaying the relationship between these two variables. How would you describe the relationship apparent in this visualization?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTY2F0dGVycGxvdCBvZiBzY29yZSB2cy4gYnR5X2F2Z1xuZ2dwbG90KGV2YWxzLCBhZXMgKHggPWJ0eV9hdmcgLCB5PXNjb3JlKSkgKyBnZW9tX3BvaW50KClcbmBgYCJ9 -->
+<pre class="r"><code># Scatterplot of score vs. bty_avg
+ggplot(evals, aes (x =bty_avg , y=score)) + geom_point()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Create a scatterplot, with an added layer 100xp Suppose you are interested in evaluating how the relationship between a professor’s attractiveness and their evaluation score varies across different class types (small, midsize, and large).</p>
+<p>Instructions Recreate your visualization from the previous exercise, but this time coloring the points by class type. How would you describe the relationship apparent in this visualization?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIFNjYXR0ZXJwbG90IG9mIHNjb3JlIHZzLiBidHlfYXZnIGNvbG9yZWQgYnkgY2xzX3R5cGVcbmdncGxvdChldmFscywgYWVzKHggPWJ0eV9hdmcgLCB5PXNjb3JlLGNvbG9yID0gY2xzX3R5cGUpKSArIGdlb21fcG9pbnQoKVxuYGBgIn0= -->
+<pre class="r"><code>
+# Scatterplot of score vs. bty_avg colored by cls_type
+ggplot(evals, aes(x =bty_avg , y=score,color = cls_type)) + geom_point()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFDYW1wX1JfSW50cm9EYXRhIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCkNoYXB0ZXIgMQ0KDQpuIHRoZSB2aWRlbywgeW91IHNhdyBob3cgdG8gbG9hZCB0aGUgaHNiMiBkYXRhc2V0IGludG8gUiB1c2luZyB0aGUgZGF0YSgpIGZ1bmN0aW9uIGFuZCBob3cgdG8gcHJldmlldyBpdHMgY29udGVudHMgd2l0aCBzdHIoKS4NCg0KSW4gdGhpcyBleGVyY2lzZSwgeW91J2xsIHByYWN0aWNlIG9uIGFub3RoZXIgZGF0YXNldCwgZW1haWw1MCwgd2hpY2ggY29udGFpbnMgYSBzdWJzZXQgb2YgaW5jb21pbmcgZW1haWxzIGZvciB0aGUgZmlyc3QgdGhyZWUgbW9udGhzIG9mIDIwMTIgZm9yIGEgc2luZ2xlIGVtYWlsIGFjY291bnQuIFlvdSB3aWxsIGV4YW1pbmUgdGhlIHN0cnVjdHVyZSBvZiB0aGlzIGRhdGFzZXQgYW5kIGRldGVybWluZSB0aGUgbnVtYmVyIG9mIHJvd3MgKG9ic2VydmF0aW9ucykgYW5kIGNvbHVtbnMgKHZhcmlhYmxlcykuDQoNCkluc3RydWN0aW9ucw0KTG9hZCB0aGUgZW1haWw1MCBkYXRhc2V0IHdpdGggdGhlIGRhdGEoKSBmdW5jdGlvbi4NClZpZXcgdGhlIHN0cnVjdHVyZSBvZiB0aGlzIGRhdGFzZXQgd2l0aCB0aGUgc3RyKCkgZnVuY3Rpb24uIEhvdyBtYW55IG9ic2VydmF0aW9ucyBhbmQgdmFyaWFibGVzIGFyZSB0aGVyZT8NCg0KYGBge3J9DQojIExvYWQgZGF0YQ0KDQpsaWJyYXJ5KG9wZW5pbnRybykNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KGdncGxvdDIpDQpkYXRhKGVtYWlsNTApDQoNCg0KIyBWaWV3IGl0cyBzdHJ1Y3R1cmUNCg0Kc3RyKGVtYWlsNTApDQpgYGANClJlY2FsbCBmcm9tIHRoZSB2aWRlbyB0aGF0IHRoZSBnbGltcHNlKCkgZnVuY3Rpb24gZnJvbSBkcGx5ciBwcm92aWRlcyBhIGhhbmR5IGFsdGVybmF0aXZlIHRvIHN0cigpIGZvciBwcmV2aWV3aW5nIGEgZGF0YXNldC4gSW4gYWRkaXRpb24gdG8gdGVsbGluZyB5b3UgdGhlIG51bWJlciBvZiBvYnNlcnZhdGlvbnMgYW5kIHZhcmlhYmxlcywgaXQgc2hvd3MgdGhlIG5hbWUgYW5kIHR5cGUgb2YgZWFjaCBjb2x1bW4sIGFsb25nIHdpdGggYSBuZWF0bHkgcHJpbnRlZCBwcmV2aWV3IG9mIGl0cyB2YWx1ZXMuDQoNCkxldCdzIGhhdmUgYW5vdGhlciBsb29rIGF0IHRoZSBlbWFpbDUwIGRhdGEsIHNvIHlvdSBjYW4gcHJhY3RpY2UgaWRlbnRpZnlpbmcgdmFyaWFibGUgdHlwZXMuDQoNCkluc3RydWN0aW9ucw0KVXNlIHRoZSBnbGltcHNlKCkgZnVuY3Rpb24gdG8gdmlldyB0aGUgdmFyaWFibGVzIGluIHRoZSBlbWFpbDUwIGRhdGFzZXQuIElkZW50aWZ5IGVhY2ggdmFyaWFibGUgYXMgZWl0aGVyIG51bWVyaWNhbCBvciBjYXRlZ29yaWNhbCwgYW5kIGZ1cnRoZXIgYXMgZGlzY3JldGUgb3IgY29udGludW91cyAoaWYgbnVtZXJpY2FsKSBvciBvcmRpbmFsIG9yIG5vdCBvcmRpbmFsIChpZiBjYXRlZ29yaWNhbCkuDQpgYGB7cn0NCiMgR2xpbXBzZSBlbWFpbDUwDQpnbGltcHNlKGVtYWlsNTApDQpgYGANCg0KRmlsdGVyaW5nIGJhc2VkIG9uIGEgZmFjdG9yDQoxMDB4cA0KQ2F0ZWdvcmljYWwgZGF0YSBhcmUgb2Z0ZW4gc3RvcmVkIGFzIGZhY3RvcnMgaW4gUi4gSW4gdGhpcyBleGVyY2lzZSwgeW91J2xsIGdldCBzb21lIHByYWN0aWNlIHdvcmtpbmcgd2l0aCBhIGZhY3RvciB2YXJpYWJsZSwgbnVtYmVyLCBmcm9tIHRoZSBlbWFpbDUwIGRhdGFzZXQuIFRoaXMgdmFyaWFibGUgdGVsbHMgeW91IHdoYXQgdHlwZSBvZiBudW1iZXIgKG5vbmUsIHNtYWxsLCBvciBiaWcpIGFuIGVtYWlsIGNvbnRhaW5zLg0KDQpSZWNhbGwgZnJvbSB0aGUgdmlkZW8gdGhhdCB0aGUgZmlsdGVyKCkgZnVuY3Rpb24gZnJvbSBkcGx5ciBhbGxvd3MgeW91IHRvIGZpbHRlciBhIGRhdGFzZXQgdG8gY3JlYXRlIGEgc3Vic2V0IGNvbnRhaW5pbmcgb25seSBjZXJ0YWluIGxldmVscyBvZiBhIHZhcmlhYmxlLiBGb3IgZXhhbXBsZSwgdGhlIGZvbGxvd2luZyBjb2RlIGZpbHRlcnMgdGhlIG10Y2FycyBkYXRhc2V0IGZvciBjYXJzIGNvbnRhaW5pbmcgNiBjeWxpbmRlcnM6DQoNCm10Y2FycyAlPiUNCiAgZmlsdGVyKGN5bCA9PSA2KQ0KSW5zdHJ1Y3Rpb25zDQpDcmVhdGUgYSBuZXcgZGF0YXNldCBjYWxsZWQgZW1haWw1MF9iaWcgdGhhdCBpcyBhIHN1YnNldCBvZiB0aGUgb3JpZ2luYWwgZW1haWw1MCBkYXRhc2V0IGNvbnRhaW5pbmcgb25seSBlbWFpbHMgd2l0aCAiYmlnIiBudW1iZXJzLiBUaGlzIGluZm9ybWF0aW9uIGlzIHN0b3JlZCBpbiB0aGUgbnVtYmVyIHZhcmlhYmxlLg0KUmVwb3J0IHRoZSBkaW1lbnNpb25zIG9mIGVtYWlsNTBfYmlnIHVzaW5nIHRoZSBnbGltcHNlKCkgZnVuY3Rpb24gYWdhaW4uIEhvdyBtYW55IGVtYWlscyBjb250YWluIGJpZyBudW1iZXJzPw0KYGBge3J9DQojIFN1YnNldCBvZiBlbWFpbHMgd2l0aCBiaWcgbnVtYmVyczogZW1haWw1MF9iaWcNCg0KZW1haWw1MF9iaWcgPC0gZW1haWw1MCAgJT4lDQogIGZpbHRlcihudW1iZXIgPT0gImJpZyIpDQoNCiMgR2xpbXBzZSB0aGUgc3Vic2V0DQoNCmdsaW1wc2UoZW1haWw1MF9iaWcpDQpgYGANCkNvbXBsZXRlIGZpbHRlcmluZyBiYXNlZCBvbiBhIGZhY3Rvcg0KMTAweHANClRoZSBkcm9wbGV2ZWxzKCkgZnVuY3Rpb24gcmVtb3ZlcyB1bnVzZWQgbGV2ZWxzIG9mIGZhY3RvciB2YXJpYWJsZXMgZnJvbSB5b3VyIGRhdGFzZXQuIEFzIHlvdSBzYXcgaW4gdGhlIHZpZGVvLCBpdCdzIG9mdGVuIHVzZWZ1bCB0byBkZXRlcm1pbmUgd2hpY2ggbGV2ZWxzIGFyZSB1bnVzZWQgKGkuZS4gY29udGFpbiB6ZXJvIHZhbHVlcykgd2l0aCB0aGUgdGFibGUoKSBmdW5jdGlvbi4NCg0KSW4gdGhpcyBleGVyY2lzZSwgeW91J2xsIHNlZSB3aGljaCBsZXZlbHMgb2YgdGhlIG51bWJlciB2YXJpYWJsZSBhcmUgZHJvcHBlZCBhZnRlciBhcHBseWluZyB0aGUgZHJvcGxldmVscygpIGZ1bmN0aW9uLg0KDQpJbnN0cnVjdGlvbnMNCk1ha2UgYSB0YWJsZSgpIG9mIHRoZSBudW1iZXIgdmFyaWFibGUgaW4gdGhlIGVtYWlsNTBfYmlnIGRhdGFzZXQuIFdoaWNoIHR3byBsZXZlbHMgYXJlIHVudXNlZD8NCkFwcGx5IHRoZSBkcm9wbGV2ZWxzKCkgZnVuY3Rpb24gdG8gdGhlIG51bWJlciB2YXJpYWJsZS4gQXNzaWduIHRoZSByZXN1bHQgYmFjayB0byBlbWFpbDUwX2JpZyRudW1iZXIuDQpSZW1ha2UgdGhlIHRhYmxlKCkgb2YgdGhlIG51bWJlciB2YXJpYWJsZSBpbiB0aGUgZW1haWw1MF9iaWcgZGF0YXNldC4gSG93IGlzIHRoaXMgb3V0cHV0IGRpZmZlcmVudCBmcm9tIHRoZSBmaXJzdD8NCmBgYHtyfQ0KDQojIFRhYmxlIG9mIG51bWJlciB2YXJpYWJsZQ0KDQp0YWJsZShlbWFpbDUwX2JpZyRudW1iZXIpDQoNCiMgRHJvcCBsZXZlbHMNCg0KZW1haWw1MF9iaWckbnVtYmVyIDwtIGRyb3BsZXZlbHMoZW1haWw1MF9iaWckbnVtYmVyKQ0KDQojIEFub3RoZXIgdGFibGUgb2YgbnVtYmVyIHZhcmlhYmxlDQoNCnRhYmxlKGVtYWlsNTBfYmlnJG51bWJlcikNCmBgYA0KDQpEaXNjcmV0aXplIGEgZGlmZmVyZW50IHZhcmlhYmxlDQoxMDB4cA0KSW4gdGhpcyBleGVyY2lzZSwgeW91IHdpbGwgY3JlYXRlIGEgY2F0ZWdvcmljYWwgdmVyc2lvbiBvZiB0aGUgbnVtX2NoYXIgdmFyaWFibGUgaW4gdGhlIGVtYWlsNTAgZGF0YXNldCwgd2hpY2ggdGVsbHMgeW91IHRoZSBudW1iZXIgb2YgY2hhcmFjdGVycyBpbiBhbiBlbWFpbCwgaW4gdGhvdXNhbmRzLiBUaGlzIG5ldyB2YXJpYWJsZSB3aWxsIGhhdmUgdHdvIGxldmVsc+KAlCJiZWxvdyBtZWRpYW4iIGFuZCAiYXQgb3IgYWJvdmUgbWVkaWFuIuKAlGRlcGVuZGluZyBvbiB3aGV0aGVyIGFuIGVtYWlsIGhhcyBsZXNzIHRoYW4gdGhlIG1lZGlhbiBudW1iZXIgb2YgY2hhcmFjdGVycyBvciBlcXVhbCB0byBvciBtb3JlIHRoYW4gdGhhdCB2YWx1ZS4NCg0KVGhlIG1lZGlhbiBtYXJrcyB0aGUgNTB0aCBwZXJjZW50aWxlLCBvciBtaWRwb2ludCwgb2YgYSBkaXN0cmlidXRpb24sIHNvIGhhbGYgb2YgdGhlIGVtYWlscyBzaG91bGQgZmFsbCBpbiBvbmUgY2F0ZWdvcnkgYW5kIHRoZSBvdGhlciBoYWxmIGluIHRoZSBvdGhlci4gWW91IHdpbGwgbGVhcm4gbW9yZSBhYm91dCB0aGUgbWVkaWFuIGFuZCBvdGhlciBtZWFzdXJlcyBvZiBjZW50ZXIgaW4gdGhlIG5leHQgY291cnNlIGluIHRoaXMgc2VyaWVzLg0KDQpJbnN0cnVjdGlvbnMNClRoZSBlbWFpbDUwIGRhdGFzZXQgaXMgYXZhaWxhYmxlIGluIHlvdXIgd29ya3NwYWNlLg0KDQpGaW5kIHRoZSBtZWRpYW4gbnVtYmVyIG9mIGNoYXJhY3RlcnMgaW4gdGhlIGVtYWlscyBhbmQgc3RvcmUgdGhlIHJlc3VsdCBhcyBtZWRfbnVtX2NoYXIuDQpDcmVhdGUgYSBuZXcgdmFyaWFibGUgY2FsbGVkIG51bV9jaGFyX2NhdCwgd2hpY2ggZGlzY3JldGl6ZXMgdGhlIG51bV9jaGFyIHZhcmlhYmxlIGludG8gImJlbG93IG1lZGlhbiIgb3IgImF0IG9yIGFib3ZlIG1lZGlhbiIuIFVzZSB0aGUgbXV0YXRlKCkgZnVuY3Rpb24gZnJvbSBkcGx5ciB0byBhY2NvbXBsaXNoIHRoaXMuDQpBcHBseSB0YWJsZSgpIHRvIGRldGVybWluZSBob3cgbWFueSBlbWFpbHMgYXJlIGluIGVhY2ggY2F0ZWdvcnkgYW5kIGV2YWx1YXRlIHdoZXRoZXIgdGhlc2UgY291bnRzIG1hdGNoIHRoZSBleHBlY3RlZCBudW1iZXJzLg0KYGBge3J9DQojIENhbGN1bGF0ZSBtZWRpYW4gbnVtYmVyIG9mIGNoYXJhY3RlcnM6IG1lZF9udW1fY2hhcg0KDQptZWRfbnVtX2NoYXIgPC0gbWVkaWFuKGVtYWlsNTAkbnVtX2NoYXIpDQoNCiMgQ3JlYXRlIG51bV9jaGFyX2NhdCB2YXJpYWJsZSBpbiBlbWFpbDUwDQoNCmVtYWlsNTAgPC0gZW1haWw1MCAlPiUNCiAgbXV0YXRlKG51bV9jaGFyX2NhdCA9IGlmZWxzZShudW1fY2hhciA8IG1lZF9udW1fY2hhciwgImJlbG93IG1lZGlhbiIsICJhdCBvciBhYm92ZSBtZWRpYW4iKSkNCg0KIyBDb3VudCBlbWFpbHMgaW4gZWFjaCBjYXRlZ29yeQ0KDQp0YWJsZShlbWFpbDUwJG51bV9jaGFyX2NhdCkNCmBgYA0KQ29tYmluaW5nIGxldmVscyBvZiBhIGRpZmZlcmVudCBmYWN0b3INCjEwMHhwDQpBbm90aGVyIGNvbW1vbiB3YXkgb2YgY3JlYXRpbmcgYSBuZXcgdmFyaWFibGUgYmFzZWQgb24gYW4gZXhpc3Rpbmcgb25lIGlzIGJ5IGNvbWJpbmluZyBsZXZlbHMgb2YgYSBjYXRlZ29yaWNhbCB2YXJpYWJsZS4gRm9yIGV4YW1wbGUsIHRoZSBlbWFpbDUwIGRhdGFzZXQgaGFzIGEgY2F0ZWdvcmljYWwgdmFyaWFibGUgY2FsbGVkIG51bWJlciB3aXRoIGxldmVscyAibm9uZSIsICJzbWFsbCIsIGFuZCAiYmlnIiwgYnV0IHN1cHBvc2UgeW91J3JlIG9ubHkgaW50ZXJlc3RlZCBpbiB3aGV0aGVyIGFuIGVtYWlsIGNvbnRhaW5zIGEgbnVtYmVyLiBJbiB0aGlzIGV4ZXJjaXNlLCB5b3Ugd2lsbCBjcmVhdGUgYSB2YXJpYWJsZSBjb250YWluaW5nIHRoaXMgaW5mb3JtYXRpb24gYW5kIGFsc28gdmlzdWFsaXplIGl0Lg0KDQpGb3Igbm93LCBkbyB5b3VyIGJlc3QgdG8gdW5kZXJzdGFuZCB0aGUgY29kZSB3ZSd2ZSBwcm92aWRlZCB0byBnZW5lcmF0ZSB0aGUgcGxvdC4gV2Ugd2lsbCBnbyB0aHJvdWdoIGl0IGluIGRldGFpbCBpbiB0aGUgbmV4dCB2aWRlby4NCg0KSW5zdHJ1Y3Rpb25zDQpDcmVhdGUgYSBuZXcgdmFyaWFibGUgaW4gZW1haWw1MCBjYWxsZWQgbnVtYmVyX3luIHRoYXQgaXMgIm5vIiBpZiB0aGVyZSBpcyBubyBudW1iZXIgaW4gdGhlIGVtYWlsIGFuZCAieWVzIiBpZiB0aGVyZSBpcyBhIHNtYWxsIG9yIGEgYmlnIG51bWJlci4gVGhlIGlmZWxzZSgpIGZ1bmN0aW9uIG1heSBwcm92ZSB1c2VmdWwgaGVyZS4NClJ1biB0aGUgY29kZSBwcm92aWRlZCB0byB2aXN1YWxpemUgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgbnVtYmVyX3luIHZhcmlhYmxlLg0KYGBge3J9DQojIENyZWF0ZSBudW1iZXJfeW4gY29sdW1uIGluIGVtYWlsNTANCg0KDQplbWFpbDUwIDwtIGVtYWlsNTAgJT4lDQogIG11dGF0ZShudW1iZXJfeW4gPSBpZmVsc2UobnVtYmVyID09ICJub25lIiwgIm5vIiwgInllcyIpKQ0KDQojIFZpc3VhbGl6ZSBudW1iZXJfeW4NCg0KZ2dwbG90KGVtYWlsNTAsIGFlcyh4ID0gbnVtYmVyX3luKSkgKw0KICBnZW9tX2JhcigpDQoNCmBgYA0KVmlzdWFsaXppbmcgbnVtZXJpY2FsIGFuZCBjYXRlZ29yaWNhbCBkYXRhDQoxMDB4cA0KSW4gdGhpcyBleGVyY2lzZSwgeW91IHdpbGwgdmlzdWFsaXplIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiB0d28gbnVtZXJpY2FsIHZhcmlhYmxlcyBmcm9tIHRoZSBlbWFpbDUwIGRhdGFzZXQsIGNvbmRpdGlvbmVkIG9uIHdoZXRoZXIgb3Igbm90IHRoZSBlbWFpbCB3YXMgc3BhbS4NCg0KUmVjYWxsIHRoYXQgaW4gdGhlIGdncGxvdCgpIGZ1bmN0aW9uLCB0aGUgZmlyc3QgYXJndW1lbnQgZ2l2ZXMgdGhlIGRhdGFzZXQsIHRoZW4gdGhlIGFlc3RoZXRpY3MgbWFwIHRoZSB2YXJpYWJsZXMgdG8gY2VydGFpbiBmZWF0dXJlcyBvZiB0aGUgcGxvdCwgYW5kIGZpbmFsbHkgdGhlIGdlb21fKigpIGxheWVyIGluZm9ybXMgdGhlIHR5cGUgb2YgcGxvdCB5b3Ugd2FudCB0byBtYWtlLiBJbiB0aGlzIGV4ZXJjaXNlLCB5b3Ugd2lsbCBtYWtlIGEgc2NhdHRlcnBsb3QgYnkgYWRkaW5nIHRoZSBnZW9tX3BvaW50KCkgbGF5ZXIgdG8geW91ciBnZ3Bsb3QoKSBjYWxsLg0KDQpJbnN0cnVjdGlvbnMNCkNyZWF0ZSBhIHNjYXR0ZXJwbG90IG9mIG51bWJlciBvZiBleGNsYW1hdGlvbiBwb2ludHMgaW4gdGhlIGVtYWlsIG1lc3NhZ2UgKGV4Y2xhaW1fbWVzcykgdnMuIG51bWJlciBvZiBjaGFyYWN0ZXJzIChudW1fY2hhcikuDQoNCkNvbG9yIHBvaW50cyBieSB3aGV0aGVyIG9yIG5vdCB0aGUgZW1haWwgaXMgc3BhbS4NCk5vdGUgdGhhdCB0aGUgc3BhbSB2YXJpYWJsZSBpcyBzdG9yZWQgYXMgbnVtZXJpY2FsICgwLzEpIGJ1dCB5b3Ugd2FudCB0byB1c2UgaXQgYXMgYSBjYXRlZ29yaWNhbCB2YXJpYWJsZSBpbiB0aGlzIHBsb3QuIFRvIGRvIHRoaXMsIHlvdSBuZWVkIHRvIGZvcmNlIFIgdG8gdGhpbmsgb2YgaXQgYXMgc3VjaCB3aXRoIHRoZSBmYWN0b3IoKSBmdW5jdGlvbi4NCkJhc2VkIG9uIHRoZSBwbG90LCB3aGF0J3MgdGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIHRoZXNlIHZhcmlhYmxlcz8NCmBgYHtyfQ0KIyBMb2FkIGdncGxvdDINCg0KDQojIFNjYXR0ZXJwbG90IG9mIGV4Y2xhaW1fbWVzcyB2cy4gbnVtX2NoYXINCg0KZ2dwbG90KGVtYWlsNTAsIGFlcyh4ID0gbnVtX2NoYXIsIHkgPSBleGNsYWltX21lc3MsIGNvbG9yID0gZmFjdG9yKHNwYW0pKSkgKw0KICBnZW9tX3BvaW50KCkNCmBgYA0KSWRlbnRpZnkgdGhlIHR5cGUgb2Ygc3R1ZHkNCjEwMHhwDQpOZXh0LCBsZXQncyB0YWtlIGEgbG9vayBhdCBkYXRhIGZyb20gYSBkaWZmZXJlbnQgc3R1ZHkgb24gY291bnRyeSBjaGFyYWN0ZXJpc3RpY3MuIFlvdSdsbCBsb2FkIHRoZSBkYXRhIGZpcnN0IGFuZCB2aWV3IGl0LCB0aGVuIHlvdSdsbCBiZSBhc2tlZCB0byBpZGVudGlmeSB0aGUgdHlwZSBvZiBzdHVkeS4gUmVtZW1iZXIsIGFuIGV4cGVyaW1lbnQgcmVxdWlyZXMgcmFuZG9tIGFzc2lnbm1lbnQuDQoNCkluc3RydWN0aW9ucw0KTG9hZCB0aGUgZ2FwbWluZGVyIGRhdGEuIFRoaXMgZGF0YXNldCBjb21lcyBmcm9tIHRoZSBnYXBtaW5kZXIgUiBwYWNrYWdlLCB3aGljaCBoYXMgYWxyZWFkeSBiZWVuIGxvYWRlZCBmb3IgeW91Lg0KVmlldyB0aGUgdmFyaWFibGVzIGluIHRoZSBkYXRhc2V0IHdpdGggZ2xpbXBzZSgpLg0KSWYgdGhlc2UgZGF0YSBjb21lIGZyb20gYW4gb2JzZXJ2YXRpb25hbCBzdHVkeSwgYXNzaWduICJvYnNlcnZhdGlvbmFsIiB0byB0aGUgdHlwZV9vZl9zdHVkeSB2YXJpYWJsZS4gSWYgZXhwZXJpbWVudGFsLCBhc3NpZ24gImV4cGVyaW1lbnRhbCIuDQpgYGB7cn0NCiMgTG9hZCBkYXRhDQoNCmxpYnJhcnkoZ2FwbWluZGVyKQ0KDQpkYXRhKGdhcG1pbmRlcikNCg0KIyBHbGltcHNlIGRhdGENCmdsaW1wc2UoZ2FwbWluZGVyKQ0KDQojIElkZW50aWZ5IHR5cGUgb2Ygc3R1ZHkNCnR5cGVfb2Zfc3R1ZHkgPC0gIm9ic2VydmF0aW9uYWwiDQpgYGANCk51bWJlciBvZiBtYWxlcyBhbmQgZmVtYWxlcyBhZG1pdHRlZA0KMTAweHANCkluIG9yZGVyIHRvIGNhbGN1bGF0ZSB0aGUgbnVtYmVyIG9mIG1hbGVzIGFuZCBmZW1hbGVzIGFkbWl0dGVkLCB3ZSB3aWxsIGludHJvZHVjZSB0d28gbmV3IGZ1bmN0aW9uczogY291bnQoKSBmcm9tIHRoZSBkcGx5ciBwYWNrYWdlIGFuZCBzcHJlYWQoKSBmcm9tIHRoZSB0aWR5ciBwYWNrYWdlLg0KDQpJbiBvbmUgc3RlcCwgY291bnQoKSBhbGxvd3MgeW91IHRvIGdyb3VwIHRoZSBkYXRhIGJ5IGNlcnRhaW4gYXR0cmlidXRlcyAoaW4gdGhpcyBjYXNlLCBhZG1pc3Npb24gc3RhdHVzIGFuZCBnZW5kZXIpIGFuZCB0aGVuIGNvdW50cyB0aGUgbnVtYmVyIG9mIG9ic2VydmF0aW9ucyBpbiBlYWNoIGNhdGVnb3J5Lg0KDQpzcHJlYWQoKSBzaW1wbHkgcmVvcmdhbml6ZXMgdGhlIG91dHB1dCBhY3Jvc3MgY29sdW1ucyBiYXNlZCBvbiBhIGtleS12YWx1ZSBwYWlyLCB3aGVyZSBhIHBhaXIgY29udGFpbnMgYSBrZXkgdGhhdCBleHBsYWlucyB3aGF0IHRoZSBpbmZvcm1hdGlvbiBkZXNjcmliZXMgYW5kIGEgdmFsdWUgdGhhdCBjb250YWlucyB0aGUgYWN0dWFsIGluZm9ybWF0aW9uLiBzcHJlYWQoKSB0YWtlcyB0aGUgbmFtZSBvZiB0aGUgZGF0YXNldCBhcyBpdHMgZmlyc3QgYXJndW1lbnQsIHRoZSBuYW1lIG9mIHRoZSBrZXkgY29sdW1uIGFzIGl0cyBzZWNvbmQgYXJndW1lbnQsIGFuZCB0aGUgbmFtZSBvZiB0aGUgdmFsdWUgY29sdW1uIGFzIGl0cyB0aGlyZCBhcmd1bWVudCwgYWxsIHNwZWNpZmllZCB3aXRob3V0IHF1b3RhdGlvbiBtYXJrcy4NCg0KSW5zdHJ1Y3Rpb25zDQpVc2UgdGhlIHVjYl9hZG1pdCBkYXRhc2V0ICh3aGljaCBpcyBhbHJlYWR5IHByZS1sb2FkZWQpIGFuZCB0aGUgY291bnQoKSBmdW5jdGlvbiB0byBkZXRlcm1pbmUgdGhlIHRvdGFsIG51bWJlciBvZiBtYWxlcyBhbmQgZmVtYWxlcyBhZG1pdHRlZC4gQXNzaWduIHRoZSByZXN1bHQgdG8gdWNiX2NvdW50cy4NClByaW50IHVjYl9jb3VudHMgdG8gdGhlIGNvbnNvbGUuDQpUaGVuLCB1c2UgdGhlIHNwcmVhZCgpIGZ1bmN0aW9uIHRvIHNwcmVhZCB0aGUgb3V0cHV0IGFjcm9zcyBjb2x1bW5zIGJhc2VkIG9uIGFkbWlzc2lvbiBzdGF0dXMgKGtleSkgYW5kIG4gKHZhbHVlKS4NCmBgYHtyfQ0KDQojIExvYWQgcGFja2FnZXMNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHRpZHlyKQ0KDQojIENvdW50IG51bWJlciBvZiBtYWxlIGFuZCBmZW1hbGUgYXBwbGljYW50cyBhZG1pdHRlZA0KdWNiX2NvdW50cyA8LSB1Y2JfYWRtaXQgJT4lDQogIGNvdW50KEdlbmRlciwgQWRtaXQpDQoNCiMgVmlldyByZXN1bHQNCnVjYl9jb3VudHMNCiAgDQojIFNwcmVhZCB0aGUgb3V0cHV0IGFjcm9zcyBjb2x1bW5zDQp1Y2JfY291bnRzICU+JQ0KICBzcHJlYWQoQWRtaXQsIG4pDQoNCmBgYA0KUHJvcG9ydGlvbiBvZiBtYWxlcyBhZG1pdHRlZCBvdmVyYWxsDQoxMDB4cA0KWW91IGNhbiBub3cgY2FsY3VsYXRlIHRoZSBwZXJjZW50YWdlIG9mIG1hbGVzIGFkbWl0dGVkLiBUbyBkbyBzbywgeW91IHdpbGwgY3JlYXRlIGEgbmV3IHZhcmlhYmxlIHdpdGggbXV0YXRlKCkgZnJvbSB0aGUgZHBseXIgcGFja2FnZS4NCg0KSW5zdHJ1Y3Rpb25zDQpkcGx5ciBhbmQgdGlkeXIgaGF2ZSBiZWVuIGxvYWRlZCBmb3IgeW91Lg0KDQpVc2UgdGhlIGNvZGUgZnJvbSB0aGUgcHJldmlvdXMgZXhlcmNpc2UgdG8gY29uc3RydWN0IGEgdGFibGUgb2YgY291bnRzIG9mIGFkbWlzc2lvbiBzdGF0dXMgYW5kIGdlbmRlci4NClRoZW4sIHVzZSB0aGUgbXV0YXRlKCkgZnVuY3Rpb24gY3JlYXRlIGEgbmV3IHZhcmlhYmxlLCBQZXJjX0FkbWl0LCB3aGljaCBpcyB0aGUgcmF0aW8gb2YgdGhvc2UgYWRtaXR0ZWQsIEFkbWl0dGVkLCB0byBhbGwgYXBwbGljYW50cyBvZiB0aGF0IGdlbmRlciwgKEFkbWl0dGVkICsgUmVqZWN0ZWQpLg0KV2hpY2ggZ2VuZGVyIGhhcyBhIGhpZ2hlciBhZG1pc3Npb24gcmF0ZSwgbWFsZSBvciBmZW1hbGU/DQpgYGB7cn0NCnVjYl9hZG1pdCAlPiUNCiAgIyBUYWJsZSBvZiBjb3VudHMgb2YgYWRtaXNzaW9uIHN0YXR1cyBhbmQgZ2VuZGVyDQogIGNvdW50KEdlbmRlcixBZG1pdCkgJT4lDQogICMgU3ByZWFkIG91dHB1dCBhY3Jvc3MgY29sdW1ucyBiYXNlZCBvbiBhZG1pc3Npb24gc3RhdHVzDQogIHNwcmVhZChBZG1pdCxuKSAlPiUNCiAgIyBDcmVhdGUgbmV3IHZhcmlhYmxlDQogIG11dGF0ZShQZXJjX0FkbWl0ID0gQWRtaXR0ZWQgLyAoKEFkbWl0dGVkICsgUmVqZWN0ZWQpKSkNCmBgYA0KUHJvcG9ydGlvbiBvZiBtYWxlcyBhZG1pdHRlZCBmb3IgZWFjaCBkZXBhcnRtZW50DQoxMDB4cA0KTmV4dCB5b3UnbGwgbWFrZSBhIHRhYmxlIHNpbWlsYXIgdG8gdGhlIG9uZSB5b3UgY29uc3RydWN0ZWQgZWFybGllciwgZXhjZXB0IHlvdSB3aWxsIGZpcnN0IGdyb3VwIHRoZSBkYXRhIGJ5IGRlcGFydG1lbnQuIFRoZW4sIHlvdSdsbCB1c2UgdGhpcyB0YWJsZSB0byBjYWxjdWxhdGUgdGhlIHByb3BvcnRpb24gb2YgbWFsZXMgYWRtaXR0ZWQgaW4gZWFjaCBkZXBhcnRtZW50Lg0KDQpJbnN0cnVjdGlvbnMNCmRwbHlyIGFuZCB0aWR5ciBoYXZlIGJlZW4gbG9hZGVkIGZvciB5b3UuDQoNClVzZSB0aGUgY29kZSBmcm9tIGVhcmxpZXIgdG8gY3JlYXRlIGEgdGFibGUgb2YgY291bnRzIG9mIGFkbWlzc2lvbiBzdGF0dXMgYW5kIGdlbmRlciwgYnV0IHRoaXMgdGltZSBncm91cCBmaXJzdCBieSBEZXB0LiBBc3NpZ24gdGhpcyByZXN1bHQgdG8gYWRtaXRfYnlfZGVwdC4NClByaW50IGFkbWl0X2J5X2RlcHQgdG8gdGhlIGNvbnNvbGUuDQpDYWxjdWxhdGUgdGhlIHBlcmNlbnRhZ2Ugb2YgdGhvc2UgYWRtaXR0ZWQgaW4gZWFjaCBkZXBhcnRtZW50LCBQZXJjX0FkbWl0LCBieSBhcHBseWluZyB0aGUgbXV0YXRlKCkgZnVuY3Rpb24gdG8gYWRtaXRfYnlfZGVwdC4NCmBgYHtyfQ0KdWNiX2FkbWl0ICU+JQ0KICBjb3VudChEZXB0LEdlbmRlcixBZG1pdCkgJT4lDQogIHNwcmVhZChBZG1pdCxuKQ0KYGBgDQoNClNpbXBsZSByYW5kb20gc2FtcGxlIGluIFINCjEwMHhwDQpTdXBwb3NlIHlvdSB3YW50IHRvIGNvbGxlY3Qgc29tZSBkYXRhIGZyb20gYSBzYW1wbGUgb2YgZWlnaHQgc3RhdGVzLiBBIGxpc3Qgb2YgYWxsIHN0YXRlcyBhbmQgdGhlIHJlZ2lvbiB0aGV5IGJlbG9uZyB0byAoTm9ydGhlYXN0LCBNaWR3ZXN0LCBTb3V0aCwgV2VzdCkgYXJlIGdpdmVuIGluIHRoZSB1c19yZWdpb25zIGRhdGEgZnJhbWUuDQoNCkluc3RydWN0aW9ucw0KVGhlIGRwbHlyIHBhY2thZ2UgYW5kIHVzX3JlZ2lvbnMgZGF0YSBmcmFtZSBoYXZlIGJlZW4gbG9hZGVkIGZvciB5b3UuDQoNClVzZSBzaW1wbGUgcmFuZG9tIHNhbXBsaW5nIHRvIHNlbGVjdCBlaWdodCBzdGF0ZXMgZnJvbSB1c19yZWdpb25zLiBTYXZlIHRoaXMgc2FtcGxlIGluIGEgZGF0YSBmcmFtZSBjYWxsZWQgc3RhdGVzX3Nycy4NCkNvdW50IHRoZSBudW1iZXIgb2Ygc3RhdGVzIGZyb20gZWFjaCByZWdpb24gaW4geW91ciBzYW1wbGUuDQpgYGB7cn0NCiMgU2ltcGxlIHJhbmRvbSBzYW1wbGU6IHN0YXRlc19zcnMNCnN0YXRlc19zcnMgPC0gdXNfcmVnaW9ucyAgJT4lDQogIHNhbXBsZV9uKHNpemUgPSA4KQ0KDQojIENvdW50IHN0YXRlcyBieSByZWdpb24NCnN0YXRlc19zcnMgJT4lDQogIGdyb3VwX2J5KHJlZ2lvbikgJT4lDQogIGNvdW50KCkNCmBgYA0KDQpTdHJhdGlmaWVkIHNhbXBsZSBpbiBSDQoxMDB4cA0KSW4gdGhlIGxhc3QgZXhlcmNpc2UsIHlvdSB0b29rIGEgc2ltcGxlIHJhbmRvbSBzYW1wbGUgb2YgZWlnaHQgc3RhdGVzLiBIb3dldmVyLCBhcyB5b3UgbWF5IGhhdmUgbm90aWNlZCB3aGVuIHlvdSBjb3VudGVkIHRoZSBudW1iZXIgb2Ygc3RhdGVzIHNlbGVjdGVkIGZyb20gZWFjaCByZWdpb24sIHRoaXMgc3RyYXRlZ3kgaXMgdW5saWtlbHkgdG8gc2VsZWN0IGFuIGVxdWFsIG51bWJlciBvZiBzdGF0ZXMgZnJvbSBlYWNoIHJlZ2lvbi4gVGhlIGdvYWwgb2Ygc3RyYXRpZmllZCBzYW1wbGluZyBpcyB0byBzZWxlY3QgYW4gZXF1YWwgbnVtYmVyIG9mIHN0YXRlcyBmcm9tIGVhY2ggcmVnaW9uLg0KDQpJbnN0cnVjdGlvbnMNClRoZSBkcGx5ciBwYWNrYWdlIGhhcyBiZWVuIGxvYWRlZCBmb3IgeW91IGFuZCB1c19yZWdpb25zIGlzIHN0aWxsIGF2YWlsYWJsZSBpbiB5b3VyIHdvcmtzcGFjZS4NCg0KVXNlIHN0cmF0aWZpZWQgc2FtcGxpbmcgdG8gc2VsZWN0IGEgdG90YWwgb2YgZWlnaHQgc3RhdGVzLCB3aGVyZSBlYWNoIHN0cmF0dW0gaXMgYSByZWdpb24uIFNhdmUgdGhpcyBzYW1wbGUgaW4gYSBkYXRhIGZyYW1lIGNhbGxlZCBzdGF0ZXNfc3RyLg0KQ291bnQgdGhlIG51bWJlciBvZiBzdGF0ZXMgZnJvbSBlYWNoIHJlZ2lvbiBpbiB5b3VyIHNhbXBsZSB0byBjb25maXJtIHRoYXQgZWFjaCByZWdpb24gaXMgcmVwcmVzZW50ZWQgZXF1YWxseSBpbiB5b3VyIHNhbXBsZS4NCg0KYGBge3J9DQojIFN0cmF0aWZpZWQgc2FtcGxlDQpzdGF0ZXNfc3RyIDwtIHVzX3JlZ2lvbnMgICU+JQ0KICBncm91cF9ieShyZWdpb24pICU+JQ0KICBzYW1wbGVfbihzaXplID0gMikNCg0KIyBDb3VudCBzdGF0ZXMgYnkgcmVnaW9uDQpzdGF0ZXNfc3RyICU+JQ0KICAgZ3JvdXBfYnkocmVnaW9uKSAlPiUNCiAgIGNvdW50KCkNCmBgYA0KSW5zcGVjdCB0aGUgZGF0YQ0KMTAweHANClRoZSBwdXJwb3NlIG9mIHRoaXMgY2hhcHRlciBpcyB0byBnaXZlIHlvdSBhbiBvcHBvcnR1bml0eSB0byBhcHBseSBhbmQgcHJhY3RpY2Ugd2hhdCB5b3UndmUgbGVhcm5lZCBvbiBhIHJlYWwgd29ybGQgZGF0YXNldC4gRm9yIHRoaXMgcmVhc29uLCB3ZSdsbCBwcm92aWRlIGEgbGl0dGxlIGxlc3MgZ3VpZGFuY2UgdGhhbiB1c3VhbC4NCg0KVGhlIGRhdGEgZnJvbSB0aGUgc3R1ZHkgZGVzY3JpYmVkIGluIHRoZSB2aWRlbyBhcmUgYXZhaWxhYmxlIGluIHlvdXIgd29ya3NwYWNlIGFzIGV2YWxzLiBMZXQncyB0YWtlIGEgbG9vayENCg0KSW5zdHJ1Y3Rpb25zDQpJbnNwZWN0IHRoZSBldmFscyBkYXRhIGZyYW1lIHVzaW5nIHRlY2huaXF1ZXMgeW91IGxlYXJuZWQgaW4gcHJldmlvdXMgY2hhcHRlcnMuIFVzZSBhbiBhcHByb2FjaCB0aGF0IHNob3dzIHlvdSBob3cgbWFueSBvYnNlcnZhdGlvbnMgYW5kIHZhcmlhYmxlcyBhcmUgaW5jbHVkZWQgaW4gdGhlIGRhdGFzZXQuDQpgYGB7cn0NCiMgSW5zcGVjdCBldmFscw0KDQpkaW0oZXZhbHMpWzFdDQoNCmRpbShldmFscylbMl0NCmBgYA0KSWRlbnRpZnkgdmFyaWFibGUgdHlwZXMNCjEwMHhwDQpJdCdzIGFsd2F5cyB1c2VmdWwgdG8gc3RhcnQgeW91ciBleHBsb3JhdGlvbiBvZiBhIGRhdGFzZXQgYnkgaWRlbnRpZnlpbmcgdmFyaWFibGUgdHlwZXMuIFRoZSByZXN1bHRzIGZyb20gdGhpcyBleGVyY2lzZSB3aWxsIGhlbHAgeW91IGRlc2lnbiBhcHByb3ByaWF0ZSB2aXN1YWxpemF0aW9ucyBhbmQgY2FsY3VsYXRlIHVzZWZ1bCBzdW1tYXJ5IHN0YXRpc3RpY3MgbGF0ZXIgaW4geW91ciBhbmFseXNpcy4NCg0KSW5zdHJ1Y3Rpb25zDQpFeHBsb3JlIHRoZSBldmFscyBkYXRhIG9uY2UgYWdhaW4gd2l0aCB0aGUgZm9sbG93aW5nIGdvYWxzIGluIG1pbmQ6DQpJZGVudGlmeSBlYWNoIHZhcmlhYmxlIGFzIG51bWVyaWNhbCBvciBjYXRlZ29yaWNhbC4NCklmIG51bWVyaWNhbCwgZGV0ZXJtaW5lIGlmIGRpc2NyZXRlIG9yIGNvbnRpbnVvdXMuDQpJZiBjYXRlZ29yaWNhbCwgZGV0ZXJtaW5lIGlmIG9yZGluYWwgb3Igbm90Lg0KV2UndmUgY3JlYXRlZCBhIHZlY3RvciBvZiB2YXJpYWJsZSBuYW1lcyBpbiB0aGUgZWRpdG9yIGNhbGxlZCBjYXRfdmFycy4gVG8gdGVzdCB5b3VyIHVuZGVyc3RhbmRpbmcgb2YgdGhlIGRhdGEsIHJlbW92ZSB0aGUgbmFtZXMgb2YgYW55IHZhcmlhYmxlcyB0aGF0IGFyZSBub3QgY2F0ZWdvcmljYWwuDQpgYGB7cn0NCiMgSW5zcGVjdCB2YXJpYWJsZSB0eXBlcw0KZ2xpbXBzZShldmFscykNCg0KIyBSZW1vdmUgbm9uLWZhY3RvciB2YXJpYWJsZXMgZnJvbSB0aGlzIHZlY3Rvcg0KY2F0X3ZhcnMgPC0gYyggInJhbmsiLCAiZXRobmljaXR5IiwgImdlbmRlciIsICJsYW5ndWFnZSIsICJjbHNfbGV2ZWwiLCAiY2xzX3Byb2ZzIiwgImNsc19jcmVkaXRzIiwNCiAgICAgICAgICAgICAgICJwaWNfb3V0Zml0IiwgInBpY19jb2xvciIpDQpgYGANClJlY29kZSBhIHZhcmlhYmxlDQoxMDB4cA0KVGhlIGNsc19zdHVkZW50cyB2YXJpYWJsZSBpbiBldmFscyB0ZWxscyB5b3UgdGhlIG51bWJlciBvZiBzdHVkZW50cyBpbiB0aGUgY2xhc3MuIFN1cHBvc2UgaW5zdGVhZCBvZiB0aGUgZXhhY3QgbnVtYmVyIG9mIHN0dWRlbnRzLCB5b3UncmUgaW50ZXJlc3RlZCBpbiB3aGV0aGVyIHRoZSBjbGFzcyBpcw0KDQoic21hbGwiICgxOCBzdHVkZW50cyBvciBmZXdlciksDQoibWlkc2l6ZSIgKDE5IC0gNTkgc3R1ZGVudHMpLCBvcg0KImxhcmdlIiAoNjAgc3R1ZGVudHMgb3IgbW9yZSkuDQpTaW5jZSB5b3UnZCBsaWtlIHRvIGhhdmUgdGhyZWUgZGlzdGluY3QgbGV2ZWxzIChpbnN0ZWFkIG9mIGp1c3QgdHdvKSwgeW91IHdpbGwgbmVlZCBhIG5lc3RlZCBjYWxsIHRvIGlmZWxzZSgpLCB3aGljaCBtZWFucyB0aGF0IHlvdSdsbCBjYWxsIGlmZWxzZSgpIGEgc2Vjb25kIHRpbWUgZnJvbSB3aXRoaW4geW91ciBmaXJzdCBjYWxsIHRvIGlmZWxzZSgpLiBXZSd2ZSBwcm92aWRlZCBzb21lIHNjYWZmb2xkaW5nIGZvciB5b3UgaW4gdGhlIGVkaXRvcuKAlHNlZSBpZiB5b3UgY2FuIGZpZ3VyZSBpdCBvdXQhDQoNCkluc3RydWN0aW9ucw0KUmVjb2RlIHRoZSBjbHNfc3R1ZGVudHMgdmFyaWFibGUgaW50byBhIG5ldyB2YXJpYWJsZSwgY2xzX3R5cGUsIGhhdmluZyB0aGUgdGhyZWUgbGV2ZWxzIGRlc2NyaWJlZCBhYm92ZS4gU2F2ZSB0aGUgcmVzdWx0aW5nIGRhdGEgZnJhbWUgKHdpdGggdGhlIG5ldyB2YXJpYWJsZSkgYXMgZXZhbHMuDQpXaGF0IHR5cGUgb2YgdmFyaWFibGUgaXMgY2xzX3R5cGU/DQpgYGB7cn0NCiMgUmVjb2RlIGNsc19zdHVkZW50cyBhcyBjbHNfdHlwZTogZXZhbHMNCmV2YWxzIDwtIGV2YWxzICAlPiUNCiAgIyBDcmVhdGUgbmV3IHZhcmlhYmxlDQogIG11dGF0ZShjbHNfdHlwZSA9IGlmZWxzZShjbHNfc3R1ZGVudHM8PTE4ICwgInNtYWxsIiwgDQogICAgICAgICAgICAgICAgICAgICAgaWZlbHNlKGNsc19zdHVkZW50cz49NjAsICJsYXJnZSIsICJtaWRzaXplIikpKQ0KYGBgDQoNCkNyZWF0ZSBhIHNjYXR0ZXJwbG90DQoxMDB4cA0KVGhlIGJ0eV9hdmcgdmFyaWFibGUgc2hvd3MgdGhlIGF2ZXJhZ2UgYmVhdXR5IHJhdGluZyBvZiB0aGUgcHJvZmVzc29yIGJ5IHRoZSBzaXggc3R1ZGVudHMgd2hvIHdlcmUgYXNrZWQgdG8gcmF0ZSB0aGUgYXR0cmFjdGl2ZW5lc3Mgb2YgdGhlc2UgZmFjdWx0eS4gVGhlIHNjb3JlIHZhcmlhYmxlIHNob3dzIHRoZSBhdmVyYWdlIHByb2Zlc3NvciBldmFsdWF0aW9uIHNjb3JlLCB3aXRoIDEgYmVpbmcgdmVyeSB1bnNhdGlzZmFjdG9yeSBhbmQgNSBiZWluZyBleGNlbGxlbnQuDQoNCkluc3RydWN0aW9ucw0KVXNlIGdncGxvdCgpIHRvIGNyZWF0ZSBhIHNjYXR0ZXJwbG90IGRpc3BsYXlpbmcgdGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIHRoZXNlIHR3byB2YXJpYWJsZXMuDQpIb3cgd291bGQgeW91IGRlc2NyaWJlIHRoZSByZWxhdGlvbnNoaXAgYXBwYXJlbnQgaW4gdGhpcyB2aXN1YWxpemF0aW9uPw0KYGBge3J9DQojIFNjYXR0ZXJwbG90IG9mIHNjb3JlIHZzLiBidHlfYXZnDQpnZ3Bsb3QoZXZhbHMsIGFlcyAoeCA9YnR5X2F2ZyAsIHk9c2NvcmUpKSArIGdlb21fcG9pbnQoKQ0KYGBgDQpDcmVhdGUgYSBzY2F0dGVycGxvdCwgd2l0aCBhbiBhZGRlZCBsYXllcg0KMTAweHANClN1cHBvc2UgeW91IGFyZSBpbnRlcmVzdGVkIGluIGV2YWx1YXRpbmcgaG93IHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiBhIHByb2Zlc3NvcidzIGF0dHJhY3RpdmVuZXNzIGFuZCB0aGVpciBldmFsdWF0aW9uIHNjb3JlIHZhcmllcyBhY3Jvc3MgZGlmZmVyZW50IGNsYXNzIHR5cGVzIChzbWFsbCwgbWlkc2l6ZSwgYW5kIGxhcmdlKS4NCg0KSW5zdHJ1Y3Rpb25zDQpSZWNyZWF0ZSB5b3VyIHZpc3VhbGl6YXRpb24gZnJvbSB0aGUgcHJldmlvdXMgZXhlcmNpc2UsIGJ1dCB0aGlzIHRpbWUgY29sb3JpbmcgdGhlIHBvaW50cyBieSBjbGFzcyB0eXBlLg0KSG93IHdvdWxkIHlvdSBkZXNjcmliZSB0aGUgcmVsYXRpb25zaGlwIGFwcGFyZW50IGluIHRoaXMgdmlzdWFsaXphdGlvbj8NCmBgYHtyfQ0KDQojIFNjYXR0ZXJwbG90IG9mIHNjb3JlIHZzLiBidHlfYXZnIGNvbG9yZWQgYnkgY2xzX3R5cGUNCmdncGxvdChldmFscywgYWVzKHggPWJ0eV9hdmcgLCB5PXNjb3JlLGNvbG9yID0gY2xzX3R5cGUpKSArIGdlb21fcG9pbnQoKQ0KYGBgDQo=</div>
 
 
 
