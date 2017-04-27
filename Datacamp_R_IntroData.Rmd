@@ -37,7 +37,7 @@ glimpse(email50)
 ```
 
 Filtering based on a factor
-100xp
+
 Categorical data are often stored as factors in R. In this exercise, you'll get some practice working with a factor variable, number, from the email50 dataset. This variable tells you what type of number (none, small, or big) an email contains.
 
 Recall from the video that the filter() function from dplyr allows you to filter a dataset to create a subset containing only certain levels of a variable. For example, the following code filters the mtcars dataset for cars containing 6 cylinders:
@@ -58,7 +58,7 @@ email50_big <- email50  %>%
 glimpse(email50_big)
 ```
 Complete filtering based on a factor
-100xp
+
 The droplevels() function removes unused levels of factor variables from your dataset. As you saw in the video, it's often useful to determine which levels are unused (i.e. contain zero values) with the table() function.
 
 In this exercise, you'll see which levels of the number variable are dropped after applying the droplevels() function.
@@ -83,7 +83,7 @@ table(email50_big$number)
 ```
 
 Discretize a different variable
-100xp
+
 In this exercise, you will create a categorical version of the num_char variable in the email50 dataset, which tells you the number of characters in an email, in thousands. This new variable will have two levels—"below median" and "at or above median"—depending on whether an email has less than the median number of characters or equal to or more than that value.
 
 The median marks the 50th percentile, or midpoint, of a distribution, so half of the emails should fall in one category and the other half in the other. You will learn more about the median and other measures of center in the next course in this series.
@@ -109,7 +109,7 @@ email50 <- email50 %>%
 table(email50$num_char_cat)
 ```
 Combining levels of a different factor
-100xp
+
 Another common way of creating a new variable based on an existing one is by combining levels of a categorical variable. For example, the email50 dataset has a categorical variable called number with levels "none", "small", and "big", but suppose you're only interested in whether an email contains a number. In this exercise, you will create a variable containing this information and also visualize it.
 
 For now, do your best to understand the code we've provided to generate the plot. We will go through it in detail in the next video.
@@ -131,7 +131,7 @@ ggplot(email50, aes(x = number_yn)) +
 
 ```
 Visualizing numerical and categorical data
-100xp
+
 In this exercise, you will visualize the relationship between two numerical variables from the email50 dataset, conditioned on whether or not the email was spam.
 
 Recall that in the ggplot() function, the first argument gives the dataset, then the aesthetics map the variables to certain features of the plot, and finally the geom_*() layer informs the type of plot you want to make. In this exercise, you will make a scatterplot by adding the geom_point() layer to your ggplot() call.
@@ -152,7 +152,7 @@ ggplot(email50, aes(x = num_char, y = exclaim_mess, color = factor(spam))) +
   geom_point()
 ```
 Identify the type of study
-100xp
+
 Next, let's take a look at data from a different study on country characteristics. You'll load the data first and view it, then you'll be asked to identify the type of study. Remember, an experiment requires random assignment.
 
 Instructions
@@ -173,7 +173,7 @@ glimpse(gapminder)
 type_of_study <- "observational"
 ```
 Number of males and females admitted
-100xp
+
 In order to calculate the number of males and females admitted, we will introduce two new functions: count() from the dplyr package and spread() from the tidyr package.
 
 In one step, count() allows you to group the data by certain attributes (in this case, admission status and gender) and then counts the number of observations in each category.
@@ -203,7 +203,7 @@ ucb_counts %>%
 
 ```
 Proportion of males admitted overall
-100xp
+
 You can now calculate the percentage of males admitted. To do so, you will create a new variable with mutate() from the dplyr package.
 
 Instructions
@@ -222,7 +222,7 @@ ucb_admit %>%
   mutate(Perc_Admit = Admitted / ((Admitted + Rejected)))
 ```
 Proportion of males admitted for each department
-100xp
+
 Next you'll make a table similar to the one you constructed earlier, except you will first group the data by department. Then, you'll use this table to calculate the proportion of males admitted in each department.
 
 Instructions
@@ -238,7 +238,7 @@ ucb_admit %>%
 ```
 
 Simple random sample in R
-100xp
+
 Suppose you want to collect some data from a sample of eight states. A list of all states and the region they belong to (Northeast, Midwest, South, West) are given in the us_regions data frame.
 
 Instructions
@@ -258,7 +258,7 @@ states_srs %>%
 ```
 
 Stratified sample in R
-100xp
+
 In the last exercise, you took a simple random sample of eight states. However, as you may have noticed when you counted the number of states selected from each region, this strategy is unlikely to select an equal number of states from each region. The goal of stratified sampling is to select an equal number of states from each region.
 
 Instructions
@@ -279,7 +279,7 @@ states_str %>%
    count()
 ```
 Inspect the data
-100xp
+
 The purpose of this chapter is to give you an opportunity to apply and practice what you've learned on a real world dataset. For this reason, we'll provide a little less guidance than usual.
 
 The data from the study described in the video are available in your workspace as evals. Let's take a look!
@@ -294,7 +294,7 @@ dim(evals)[1]
 dim(evals)[2]
 ```
 Identify variable types
-100xp
+
 It's always useful to start your exploration of a dataset by identifying variable types. The results from this exercise will help you design appropriate visualizations and calculate useful summary statistics later in your analysis.
 
 Instructions
@@ -312,7 +312,7 @@ cat_vars <- c( "rank", "ethnicity", "gender", "language", "cls_level", "cls_prof
                "pic_outfit", "pic_color")
 ```
 Recode a variable
-100xp
+
 The cls_students variable in evals tells you the number of students in the class. Suppose instead of the exact number of students, you're interested in whether the class is
 
 "small" (18 students or fewer),
@@ -332,7 +332,7 @@ evals <- evals  %>%
 ```
 
 Create a scatterplot
-100xp
+
 The bty_avg variable shows the average beauty rating of the professor by the six students who were asked to rate the attractiveness of these faculty. The score variable shows the average professor evaluation score, with 1 being very unsatisfactory and 5 being excellent.
 
 Instructions
@@ -343,7 +343,7 @@ How would you describe the relationship apparent in this visualization?
 ggplot(evals, aes (x =bty_avg , y=score)) + geom_point()
 ```
 Create a scatterplot, with an added layer
-100xp
+
 Suppose you are interested in evaluating how the relationship between a professor's attractiveness and their evaluation score varies across different class types (small, midsize, and large).
 
 Instructions
